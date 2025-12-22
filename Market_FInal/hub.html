@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub – MarketOps Cloud</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        nav { background: #ffffff !important; height: 160px !important; display: flex !important; align-items: center !important; width: 100% !important; border-bottom: 1px solid #e5e7eb !important; position: sticky !important; top: 0 !important; z-index: 1000 !important; }
+        .nav-container { display: flex !important; align-items: center !important; justify-content: center !important; width: 100% !important; max-width: 1440px !important; margin: 0 auto !important; position: relative !important; }
+        .logo { position: absolute !important; left: 20px !important; top: 50% !important; transform: translateY(-50%) !important; }
+        .logo img { height: 120px !important; width: auto !important; }
+        .nav-links { display: flex !important; list-style: none !important; gap: 20px !important; align-items: center !important; margin-left: 150px !important; }
+        .nav-links a { text-decoration: none !important; color: #334155 !important; font-weight: 700 !important; font-size: 11px !important; text-transform: uppercase !important; }
+        .login-btn { background: #ffffff !important; color: #ff9900 !important; border: 2px solid #ff9900 !important; padding: 10px 20px !important; border-radius: 10px !important; font-weight: 900 !important; text-decoration: none !important; margin-left: 15px !important; transition: 0.3s !important; }
+        .login-btn:hover { background: #ff9900 !important; color: #ffffff !important; }
+        .portal-btn { color: #ff9900 !important; border: 2px solid #ff9900 !important; padding: 10px 15px !important; border-radius: 10px !important; font-weight: 700 !important; }
+        
+        .hero { padding: 80px 20px; text-align: center; background: #f8fafc; }
+        .hero h1 { font-size: 42px; color: #0b3c5d; font-weight: 800; }
+
+        .cards-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; max-width: 1200px; margin: 60px auto; padding: 0 20px; }
+        .card { background: #f1f5f9; padding: 40px 30px; border-radius: 20px; text-align: center; position: relative; overflow: hidden; transition: 0.3s; min-height: 300px; border: 1px solid #e2e8f0; }
+        .card i { font-size: 45px; color: #ff9900; margin-bottom: 20px; }
+        .card-overlay { position: absolute; top: 100%; left: 0; width: 100%; height: 100%; background: #0b3c5d; color: white; padding: 30px; transition: 0.4s; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; text-align: left; }
+        .card:hover .card-overlay { top: 0; }
+        .card-overlay h4 { color: #ff9900; margin-bottom: 15px; }
+        .card-overlay ul { list-style: none; padding: 0; }
+        .card-overlay li { margin-bottom: 8px; font-size: 14px; }
+        
+        .bottom-banner { background: linear-gradient(135deg, #0b3c5d 0%, #1e293b 100%); color: white; padding: 80px 20px; text-align: center; }
+        .cta-orange { background: #ff9900; color: white; padding: 15px 40px; border-radius: 10px; text-decoration: none; font-weight: 800; display: inline-block; margin-top: 20px; }
+    </style>
+</head>
+<body>
+<nav>
+  <div class="nav-container">
+    <a href="index.html" class="logo"><img src="assets/images/Logo.png.png" alt="Logo"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="roadmap.html">Roadmap</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="specs.html">Specs</a></li>
+      <li><a href="hub.html" style="color:#ff9900;">Hub</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="pricing.html" class="portal-btn">Subscription Hub</a></li>
+      <li><a href="portal.html" class="login-btn">LOGIN</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1>The Knowledge Hub</h1>
+  <p>Expert insights and free resources to help ISVs master the Cloud Marketplace economy.</p>
+</header>
+
+<main>
+    <div class="cards-container">
+        <div class="card">
+            <i class="fa-solid fa-book-open"></i>
+            <h3>KYC Survival Guide</h3>
+            <p>Checklist for passing AWS "Know Your Customer" and banking verification.</p>
+            <div class="card-overlay">
+                <h4>Resource Includes</h4>
+                <ul>
+                    <li>• Legal Entity Documentation</li>
+                    <li>• Multi-Regional Tax Profiles</li>
+                    <li>• Common Rejection Pitfalls</li>
+                    <li>• Bank Letter Requirements</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-handshake-simple"></i>
+            <h3>CPPO Frameworks</h3>
+            <p>Design a Channel Partner Private Offer strategy that motivates resellers.</p>
+            <div class="card-overlay">
+                <h4>Resource Includes</h4>
+                <ul>
+                    <li>• Reseller Authorization Paths</li>
+                    <li>• Standard vs Direct CPPO</li>
+                    <li>• Automated Billing Flows</li>
+                    <li>• Channel Margin Mapping</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-arrow-up-right-dots"></i>
+            <h3>Listing Optimization</h3>
+            <p>Secrets to improve your Marketplace "Discoverability" and conversion rate.</p>
+            <div class="card-overlay">
+                <h4>Resource Includes</h4>
+                <ul>
+                    <li>• Metadata SEO Strategies</li>
+                    <li>• Solution Architecture Diagrams</li>
+                    <li>• Support Documentation Standards</li>
+                    <li>• ROI Calculator Tools</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+
+<section class="bottom-banner">
+  <h2>Stay Compliant. Stay Profitable.</h2>
+  <p>The Marketplace ecosystem changes fast. Get quarterly updates on policy changes.</p>
+  <a href="contact.html" class="cta-orange">Subscribe to Insights</a>
+</section>
+</body>
+</html>

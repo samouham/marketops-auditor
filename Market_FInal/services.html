@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services – MarketOps Cloud</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* 🚨 STABLE NAVIGATION & HERO (Matched to Homepage) */
+        nav {
+            background: #ffffff !important;
+            height: 160px !important; 
+            display: flex !important;
+            align-items: center !important;
+            width: 100% !important;
+            border-bottom: 1px solid #e5e7eb !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1000 !important;
+        }
+
+        .nav-container {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 100% !important;
+            max-width: 1440px !important;
+            margin: 0 auto !important;
+            position: relative !important;
+        }
+
+        .logo {
+            position: absolute !important;
+            left: 20px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+        }
+        
+        .logo img { 
+            height: 120px !important; 
+            width: auto !important; 
+            display: block !important;
+        }
+
+        .nav-links {
+            display: flex !important;
+            list-style: none !important;
+            gap: 20px !important;
+            align-items: center !important;
+            margin-left: 150px !important;
+        }
+
+        .nav-links a {
+            text-decoration: none !important;
+            color: #334155 !important;
+            font-weight: 700 !important;
+            font-size: 11px !important;
+            text-transform: uppercase !important;
+        }
+
+        /* 🔑 LOGIN BUTTON (White with Orange Border) */
+        .login-btn {
+            background: #ffffff !important;
+            color: #ff9900 !important;
+            border: 2px solid #ff9900 !important;
+            padding: 10px 20px !important;
+            border-radius: 10px !important;
+            font-weight: 900 !important;
+            text-decoration: none !important;
+            margin-left: 15px !important;
+            transition: 0.3s !important;
+        }
+        .login-btn:hover {
+            background: #ff9900 !important;
+            color: #ffffff !important;
+        }
+
+        .portal-btn {
+            color: #ff9900 !important;
+            border: 2px solid #ff9900 !important;
+            padding: 10px 15px !important;
+            border-radius: 10px !important;
+            font-weight: 700 !important;
+        }
+
+        .hero {
+            padding: 80px 20px !important;
+            text-align: center;
+            background: #f8fafc;
+        }
+
+        .hero h1 { font-size: 42px; color: #0b3c5d; margin-bottom: 15px; font-weight: 800; }
+        .hero p { font-size: 18px; color: #64748b; max-width: 800px; margin: 0 auto; }
+
+        /* 🛠️ SERVICES LAYOUT */
+        .service-row {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+            align-items: center;
+        }
+
+        .service-row.reverse { direction: rtl; }
+        .service-row.reverse .text-content { direction: ltr; }
+
+        .text-content h2 { color: #0b3c5d; font-size: 2.2rem; margin-bottom: 20px; font-weight: 800; }
+        .text-content p { color: #4b5563; line-height: 1.7; margin-bottom: 25px; font-size: 16px; }
+
+        .service-list { list-style: none; padding: 0; margin-bottom: 30px; }
+        .service-list li { margin-bottom: 12px; font-weight: 600; display: flex; align-items: center; gap: 12px; color: #1e293b; }
+        .service-list i { color: #10b981; font-size: 18px; }
+
+        .visual-callout {
+            background: white;
+            padding: 50px;
+            border-radius: 30px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+            border: 1px solid #f1f5f9;
+        }
+        .visual-callout i { font-size: 50px; color: #ff9900; margin-bottom: 20px; }
+        .visual-callout h4 { color: #0b3c5d; font-style: italic; font-size: 20px; margin-bottom: 10px; font-weight: 700; }
+        .visual-callout p { color: #64748b; font-size: 14px; margin: 0; }
+
+        /* 🚩 BEAUTIFUL BOTTOM BANNER */
+        .bottom-banner { 
+            background: linear-gradient(135deg, #0b3c5d 0%, #1e293b 100%); 
+            color: white; 
+            padding: 80px 20px; 
+            text-align: center; 
+        }
+        .bottom-banner h2 { font-size: 32px; font-weight: 800; margin-bottom: 15px; }
+        .cta-white { 
+            background: white; 
+            color: #0b3c5d; 
+            padding: 15px 40px; 
+            border-radius: 10px; 
+            text-decoration: none; 
+            font-weight: 800; 
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .service-row, .service-row.reverse { grid-template-columns: 1fr; direction: ltr; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-container">
+    <a href="index.html" class="logo">
+      <img src="assets/images/Logo.png.png" alt="MarketOps Cloud Logo">
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="roadmap.html">Roadmap</a></li>
+      <li><a href="services.html" style="color:#ff9900;">Services</a></li>
+      <li><a href="specs.html">Specs</a></li>
+      <li><a href="hub.html">Hub</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="pricing.html" class="portal-btn">Subscription Hub</a></li>
+      <li><a href="portal.html" class="login-btn">LOGIN</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1>Our Service Catalog</h1>
+  <p>MarketOps Cloud provides end-to-end technical and business execution for ISVs looking to dominate the AWS Marketplace ecosystem.</p>
+</header>
+
+<main>
+  <section class="service-row">
+    <div class="text-content">
+      <h2>Marketplace Launchpad</h2>
+      <p>Our foundation service designed for vendors new to the ecosystem. We handle the heavy lifting of bureaucratic and technical registration so you can start transacting in record time.</p>
+      <ul class="service-list">
+        <li><i class="fa-solid fa-circle-check"></i> Seller Profile & KYC Registration</li>
+        <li><i class="fa-solid fa-circle-check"></i> Tax & Banking (Hyperwallet) Setup</li>
+        <li><i class="fa-solid fa-circle-check"></i> Product Listing (SaaS, AMI, Container)</li>
+        <li><i class="fa-solid fa-circle-check"></i> Public Offer Generation</li>
+      </ul>
+      <a href="contact.html" class="cta-white" style="background: #ff9900; color: white;">Inquire About Launchpad</a>
+    </div>
+    <div class="visual-callout">
+      <i class="fa-solid fa-rocket"></i>
+      <h4>"From Zero to Live in 30 Days"</h4>
+      <p>Full compliance and metadata optimization included.</p>
+    </div>
+  </section>
+
+  <section class="service-row reverse">
+    <div class="text-content">
+      <h2>Listing Optimization</h2>
+      <p>Having a listing isn't enough; it must be discoverable and credible. We audit your existing presence to ensure it meets the rigorous standards of AWS Enterprise buyers.</p>
+      <ul class="service-list">
+        <li><i class="fa-solid fa-circle-check"></i> SEO Metadata & Keyword Tuning</li>
+        <li><i class="fa-solid fa-circle-check"></i> FTR (Foundational Technical Review) Support</li>
+        <li><i class="fa-solid fa-circle-check"></i> Private Offer (CPPO) Strategy</li>
+        <li><i class="fa-solid fa-circle-check"></i> Competitive Pricing Analysis</li>
+      </ul>
+      <a href="contact.html" class="cta-white" style="background: #ff9900; color: white;">Boost Your Listing</a>
+    </div>
+    <div class="visual-callout">
+      <i class="fa-solid fa-shield-halved"></i>
+      <h4>"Standardized for Enterprise"</h4>
+      <p>We align your listing with the AWS FTR standards.</p>
+    </div>
+  </section>
+
+  <section class="service-row">
+    <div class="text-content">
+      <h2>Managed TAM Concierge</h2>
+      <p>Our flagship white-glove service. We act as your internal Marketplace Desk, managing the technical account management (TAM) duties so your team stays focused on code.</p>
+      <ul class="service-list">
+        <li><i class="fa-solid fa-circle-check"></i> 24/7 Support for Private Offer Execution</li>
+        <li><i class="fa-solid fa-circle-check"></i> Disbursement & Revenue Reporting</li>
+        <li><i class="fa-solid fa-circle-check"></i> Monthly Billing Governance</li>
+        <li><i class="fa-solid fa-circle-check"></i> Dedicated Slack Channel Support</li>
+      </ul>
+      <a href="contact.html" class="cta-white" style="background: #ff9900; color: white;">Request Concierge Access</a>
+    </div>
+    <div class="visual-callout">
+      <i class="fa-solid fa-headset"></i>
+      <h4>"Your Dedicated Marketplace Desk"</h4>
+      <p>Unlimited listing updates and billing support.</p>
+    </div>
+  </section>
+</main>
+
+<section class="bottom-banner">
+  <h2>Not sure which plan fits?</h2>
+  <p>Schedule a 15-minute Discovery Call with a Marketplace Architect.</p>
+  <a href="contact.html" class="cta-white">Book a Discovery Call</a>
+</section>
+
+<footer class="site-footer" style="padding: 60px 20px; background: #f8fafc; border-top: 1px solid #e5e7eb;">
+  <div class="footer-container" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px;">
+    <div class="footer-brand" style="flex: 1; min-width: 250px;">
+      <img src="assets/images/Logo.png.png" alt="MarketOps Cloud" style="height: 60px;">
+      <p style="color: #64748b; margin-top: 15px;">Accelerating cloud revenue for global ISVs through expert AWS Marketplace management.</p>
+    </div>
+    
+    <div class="footer-column" style="flex: 1; min-width: 150px;">
+      <h4 style="color: #0b3c5d; margin-bottom: 20px;">Platform</h4>
+      <ul style="list-style: none; padding: 0; color: #64748b; line-height: 2;">
+        <li><a href="index.html" style="text-decoration:none; color:inherit;">Home</a></li>
+        <li><a href="roadmap.html" style="text-decoration:none; color:inherit;">Roadmap</a></li>
+        <li><a href="pricing.html" style="text-decoration:none; color:inherit;">Pricing</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-newsletter" style="flex: 1; min-width: 250px;">
+      <h4 style="color: #0b3c5d; margin-bottom: 20px;">Stay Updated</h4>
+      <form style="display: flex; gap: 10px;">
+        <input type="email" placeholder="Email Address" style="padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; flex: 1;">
+        <button type="submit" style="background: #ff9900; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700;">Join</button>
+      </form>
+    </div>
+  </div>
+  <div class="footer-bottom" style="max-width: 1200px; margin: 40px auto 0 auto; padding-top: 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; color: #94a3b8; font-size: 14px;">
+    <p>&copy; 2025 MarketOps Cloud. All rights reserved.</p>
+    <div class="social-links" style="display: flex; gap: 15px; font-size: 18px;">
+      <a href="#" style="color: inherit;"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="#" style="color: inherit;"><i class="fa-brands fa-x-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

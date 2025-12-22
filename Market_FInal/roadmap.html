@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap – MarketOps Cloud</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        /* 🚨 STABLE NAVIGATION & HERO (Matched to Homepage) */
+        nav {
+            background: #ffffff !important;
+            height: 160px !important; 
+            display: flex !important;
+            align-items: center !important;
+            width: 100% !important;
+            border-bottom: 1px solid #e5e7eb !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 1000 !important;
+        }
+
+        .nav-container {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 100% !important;
+            max-width: 1440px !important;
+            margin: 0 auto !important;
+            position: relative !important;
+        }
+
+        .logo {
+            position: absolute !important;
+            left: 20px !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important;
+        }
+        
+        .logo img { 
+            height: 120px !important; 
+            width: auto !important; 
+            display: block !important;
+        }
+
+        .nav-links {
+            display: flex !important;
+            list-style: none !important;
+            gap: 20px !important;
+            align-items: center !important;
+            margin-left: 150px !important;
+        }
+
+        .nav-links a {
+            text-decoration: none !important;
+            color: #334155 !important;
+            font-weight: 700 !important;
+            font-size: 11px !important;
+            text-transform: uppercase !important;
+        }
+
+        /* 🔑 LOGIN BUTTON (White with Orange Border) */
+        .login-btn {
+            background: #ffffff !important;
+            color: #ff9900 !important;
+            border: 2px solid #ff9900 !important;
+            padding: 10px 20px !important;
+            border-radius: 10px !important;
+            font-weight: 900 !important;
+            text-decoration: none !important;
+            margin-left: 15px !important;
+            transition: 0.3s !important;
+        }
+        .login-btn:hover {
+            background: #ff9900 !important;
+            color: #ffffff !important;
+        }
+
+        .portal-btn {
+            color: #ff9900 !important;
+            border: 2px solid #ff9900 !important;
+            padding: 10px 15px !important;
+            border-radius: 10px !important;
+            font-weight: 700 !important;
+        }
+
+        .hero {
+            padding: 80px 20px !important;
+            text-align: center;
+            background: #f8fafc;
+        }
+
+        .hero h1 { font-size: 42px; color: #0b3c5d; margin-bottom: 15px; }
+        .hero p { font-size: 18px; color: #64748b; max-width: 800px; margin: 0 auto; }
+
+        /* 🎴 ROADMAP CARDS GRID */
+        .content-wrapper { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: #f1f5f9; /* Colored Background */
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s ease;
+            min-height: 280px;
+        }
+
+        .card i { font-size: 45px; color: #ff9900; margin-bottom: 20px; }
+        .card h3 { color: #0b3c5d; margin-bottom: 15px; font-weight: 800; font-size: 20px; }
+        .card p { color: #334155; font-size: 14px; font-weight: 600; line-height: 1.6; }
+
+        /* 🔍 HOVER OVERLAY */
+        .card-overlay {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0b3c5d;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 30px;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-sizing: border-box;
+            z-index: 2;
+        }
+
+        .card:hover .card-overlay { top: 0; }
+        .card-overlay h4 { color: #ff9900; margin-bottom: 10px; font-size: 18px; font-weight: 800; }
+        .card-overlay p { color: white; font-size: 13px; margin-bottom: 15px; }
+        .card-overlay ul { list-style: none; padding: 0; text-align: left; }
+        .card-overlay li { margin-bottom: 8px; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+        .card-overlay li::before { content: "✔"; color: #ff9900; font-weight: 900; }
+
+        /* 🚩 BEAUTIFUL BOTTOM BANNER */
+        .bottom-banner { 
+            background: linear-gradient(135deg, #0b3c5d 0%, #1e293b 100%); 
+            color: white; 
+            padding: 80px 20px; 
+            text-align: center; 
+        }
+        .bottom-banner h2 { font-size: 32px; font-weight: 800; margin-bottom: 15px; }
+        .cta-white { 
+            background: white; 
+            color: #0b3c5d; 
+            padding: 15px 40px; 
+            border-radius: 10px; 
+            text-decoration: none; 
+            font-weight: 800; 
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-container">
+    <a href="index.html" class="logo">
+      <img src="assets/images/Logo.png.png" alt="MarketOps Cloud Logo">
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="roadmap.html" style="color:#ff9900;">Roadmap</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="specs.html">Specs</a></li>
+      <li><a href="hub.html">Hub</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="pricing.html" class="portal-btn">Subscription Hub</a></li>
+      <li><a href="portal.html" class="login-btn">LOGIN</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1>The Launch Roadmap</h1>
+  <p>Our 30-day framework to transform your software into a transactable AWS Marketplace listing.</p>
+</header>
+
+<main class="content-wrapper">
+    <div class="cards-container">
+        <div class="card">
+          <i class="fa-solid fa-address-card"></i> 
+          <h3>Phase 1: Registration</h3>
+          <p>Establishing your legal and tax profile within the AWS ecosystem.</p>
+          <div class="card-overlay">
+            <h4>Setup Tasks</h4>
+            <p>Onboarding your entity for global payments.</p>
+            <ul>
+              <li>Tax Interview Completion</li>
+              <li>Bank Account Verification</li>
+              <li>KYC Compliance Approval</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <i class="fa-solid fa-box-open"></i> 
+          <h3>Phase 2: Listing</h3>
+          <p>Configuring your SaaS product for the public marketplace catalog.</p>
+          <div class="card-overlay">
+            <h4>Catalog Design</h4>
+            <p>Creating a high-converting listing page.</p>
+            <ul>
+              <li>Metadata Optimization</li>
+              <li>Pricing Model Selection</li>
+              <li>EULA Terms Integration</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <i class="fa-solid fa-gears"></i> 
+          <h3>Phase 3: Integration</h3>
+          <p>Connecting your technical backend to AWS Commerce APIs.</p>
+          <div class="card-overlay">
+            <h4>Technical Ops</h4>
+            <p>Automating fulfillment and metering.</p>
+            <ul>
+              <li>SaaS Token Exchange</li>
+              <li>Usage Event Metering</li>
+              <li>SNS Topic Subscription</li>
+            </ul>
+          </div>
+        </div>
+    </div>
+</main>
+
+<section class="bottom-banner">
+  <h2>Ready to start Phase 1?</h2>
+  <p>Don't let registration delays stall your revenue. Start your audit today.</p>
+  <a href="contact.html" class="cta-white">Book Your Roadmap Session</a>
+</section>
+
+<footer class="site-footer" style="padding: 60px 20px; background: #f8fafc; border-top: 1px solid #e5e7eb;">
+  <div class="footer-container" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px;">
+    <div class="footer-brand" style="flex: 1; min-width: 250px;">
+      <img src="assets/images/Logo.png.png" alt="MarketOps Cloud" style="height: 60px;">
+      <p style="color: #64748b; margin-top: 15px;">Accelerating cloud revenue for global ISVs through expert AWS Marketplace management.</p>
+    </div>
+    
+    <div class="footer-column" style="flex: 1; min-width: 150px;">
+      <h4 style="color: #0b3c5d; margin-bottom: 20px;">Platform</h4>
+      <ul style="list-style: none; padding: 0; color: #64748b; line-height: 2;">
+        <li><a href="index.html" style="text-decoration:none; color:inherit;">Home</a></li>
+        <li><a href="roadmap.html" style="text-decoration:none; color:inherit;">Roadmap</a></li>
+        <li><a href="pricing.html" style="text-decoration:none; color:inherit;">Pricing</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-newsletter" style="flex: 1; min-width: 250px;">
+      <h4 style="color: #0b3c5d; margin-bottom: 20px;">Stay Updated</h4>
+      <form style="display: flex; gap: 10px;">
+        <input type="email" placeholder="Email Address" style="padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; flex: 1;">
+        <button type="submit" style="background: #ff9900; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 700;">Join</button>
+      </form>
+    </div>
+  </div>
+  <div class="footer-bottom" style="max-width: 1200px; margin: 40px auto 0 auto; padding-top: 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; color: #94a3b8; font-size: 14px;">
+    <p>&copy; 2025 MarketOps Cloud. All rights reserved.</p>
+    <div class="social-links" style="display: flex; gap: 15px; font-size: 18px;">
+      <a href="#" style="color: inherit;"><i class="fa-brands fa-linkedin"></i></a>
+      <a href="#" style="color: inherit;"><i class="fa-brands fa-x-twitter"></i></a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

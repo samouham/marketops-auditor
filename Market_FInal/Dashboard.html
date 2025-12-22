@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketOps | Subscription Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --aws-blue: #232f3e;
+            --aws-orange: #ff9900;
+            --bg-gray: #f2f3f3;
+            --border: #eaeded;
+            --text-dark: #16191f;
+        }
+
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-gray); margin: 0; color: var(--text-dark); }
+
+        nav { 
+            background: var(--aws-blue); 
+            padding: 12px 30px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            color: white;
+        }
+        .nav-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.5px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 14px; margin-left: 20px; opacity: 0.8; }
+
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+        .welcome-bar { margin-bottom: 30px; }
+        .welcome-bar h1 { margin: 0; font-size: 24px; font-weight: 800; }
+
+        .dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+
+        .card { 
+            background: white; 
+            border: 1px solid var(--border); 
+            padding: 24px;
+            box-shadow: 0 1px 1px 0 rgba(0,28,36,0.1);
+            margin-bottom: 25px;
+        }
+        .card-title { font-size: 18px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+
+        .status-badge { 
+            padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 800;
+            background: #edfaf5; color: #007d51; text-transform: uppercase;
+        }
+
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .info-group label { display: block; font-size: 11px; color: #545b64; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
+        .info-group p { margin: 0; font-size: 15px; font-weight: 600; }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 10px 22px; border-radius: 2px; font-weight: 700; font-size: 14px;
+            cursor: pointer; text-decoration: none; border: none;
+        }
+        .btn-orange { background: var(--aws-orange); color: white; }
+        .btn-white { background: white; border: 1px solid #545b64; color: #545b64; }
+
+        .gmail-box {
+            background: #f1faff; border: 1px solid #0073bb; padding: 25px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-brand">
+            <img src="assets/images/Logo.png.png" alt="MarketOps" style="height: 28px; filter: brightness(0) invert(1);">
+            <i class="fa-solid fa-circle" style="color: #00ff00; font-size: 8px;"></i>
+            <span>SUBSCRIPTION HUB</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="subscription.html">Plans</a>
+            <a href="index.html" style="border-left: 1px solid rgba(255,255,255,0.3); padding-left: 20px;">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="welcome-bar">
+            <h1>Marketplace Management Console</h1>
+            <p style="color: #545b64;">Welcome back, <strong>ISV Partner</strong></p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="main-col">
+                <div class="card">
+                    <div class="card-title">
+                        Active Support Services 
+                        <span class="status-badge">Active Service</span>
+                    </div>
+                    <div class="info-grid">
+                        <div class="info-group">
+                            <label>Subscription Tier</label>
+                            <p>TAM Concierge Support</p>
+                        </div>
+                        <div class="info-group">
+                            <label>Service Status</label>
+                            <p>Operational</p>
+                        </div>
+                        <div class="info-group">
+                            <label>Next Billing Date</label>
+                            <p>Jan 18, 2026</p>
+                        </div>
+                        <div class="info-group">
+                            <label>TAM Specialist</label>
+                            <p>MarketOps Lead</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card gmail-box">
+                    <h3 style="margin-top:0; color: #003049;"><i class="fa-solid fa-envelope-open-text"></i> Communicate with your TAM</h3>
+                    <p style="font-size: 14px; line-height: 1.6; color: #003049;">For your security, all technical execution and listing audits are managed via <strong>Gmail</strong>. This ensures a permanent audit trail for your AWS Marketplace account.</p>
+                    <a href="https://mail.google.com" target="_blank" class="btn btn-orange">Go to Gmail Inbox</a>
+                </div>
+            </div>
+
+            <div class="side-col">
+                <div class="card">
+                    <div class="card-title" style="font-size: 15px;">AWS Account Context</div>
+                    <div class="info-group" style="margin-bottom: 15px;">
+                        <label>AWS Seller ID</label>
+                        <p style="font-family: monospace;">MCLC-552910</p>
+                    </div>
+                    <div class="info-group">
+                        <label>Technical Lead</label>
+                        <p style="font-size: 13px;">admin@isvpartner.com</p>
+                    </div>
+                </div>
+
+                <div class="card" style="background: #fafafa;">
+                    <div class="card-title" style="font-size: 14px;">Shortcuts</div>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <a href="#" style="color: #0073bb; text-decoration: none; font-size: 13px;"><i class="fa-solid fa-receipt"></i> Billing & Invoices</a>
+                        <a href="#" style="color: #0073bb; text-decoration: none; font-size: 13px;"><i class="fa-solid fa-gear"></i> Plan Settings</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

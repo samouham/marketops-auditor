@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketOps OS | Recovery Terminal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-deep: #0B0E14;        /* Deep Charcoal Stealth */
+            --sidebar-dark: #12161F;
+            --border-muted: #242933;
+            --text-main: #E2E8F0;      /* Silver/Off-white */
+            --text-dim: #94A3B8;
+            --accent-blue: #3B82F6;    /* Electric Blue */
+            --accent-green: #10B981;   /* Recovery Emerald */
+            --accent-orange: #FF9900;  /* Brand Identity */
+            --danger: #EF4444;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg-deep); 
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            letter-spacing: -0.02em;
+        }
+
+        /* 📁 STEALTH SIDEBAR */
+        .sidebar {
+            width: 280px;
+            background: var(--sidebar-dark);
+            border-right: 1px solid var(--border-muted);
+            display: flex;
+            flex-direction: column;
+            padding: 32px 20px;
+        }
+
+        .sidebar-brand {
+            font-weight: 800;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 48px;
+            padding-left: 12px;
+            color: #fff;
+        }
+
+        .sidebar-brand span { color: var(--accent-orange); }
+
+        .nav-section { margin-bottom: 32px; }
+        .nav-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #475569;
+            margin-bottom: 12px;
+            padding-left: 12px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            border-radius: 6px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-item:hover { color: #fff; background: rgba(255,255,255,0.03); }
+        .nav-item.active { 
+            color: #fff; 
+            background: rgba(59, 130, 246, 0.1); 
+            box-shadow: inset 3px 0 0 var(--accent-blue);
+        }
+
+        /* 🔒 SHADOW TESTING STYLES */
+        .locked-feature {
+            filter: grayscale(100%);
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .badge-soon {
+            font-size: 8px;
+            background: var(--border-muted);
+            color: var(--text-dim);
+            padding: 2px 5px;
+            border-radius: 3px;
+            margin-left: auto;
+            border: 1px solid #334155;
+        }
+
+        /* 🖥️ OPERATIONAL TERMINAL */
+        .main-view {
+            flex: 1;
+            padding: 40px 60px;
+            overflow-y: auto;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 48px;
+        }
+
+        .view-title h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.04em; }
+        .view-title p { color: var(--text-dim); font-size: 13px; margin-top: 4px; font-family: 'Geist Mono', monospace; }
+
+        .system-status {
+            font-family: 'Geist Mono', monospace;
+            font-size: 11px;
+            color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.05);
+            padding: 6px 12px;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        /* (Metrics and Table styles remain same) */
+        .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }
+        .metric-card { background: var(--sidebar-dark); border: 1px solid var(--border-muted); padding: 24px; border-radius: 8px; }
+        .metric-label { font-size: 11px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; }
+        .metric-value { font-family: 'Geist Mono', monospace; font-size: 32px; font-weight: 700; margin-top: 12px; font-variant-numeric: tabular-nums; }
+        .recovered { color: var(--accent-green); }
+        .data-container { background: var(--sidebar-dark); border: 1px solid var(--border-muted); border-radius: 8px; overflow: hidden; }
+        .data-table { width: 100%; border-collapse: collapse; font-family: 'Geist Mono', monospace; font-variant-numeric: tabular-nums; }
+        .data-table th { text-align: left; padding: 16px 24px; font-size: 10px; color: #475569; text-transform: uppercase; border-bottom: 1px solid var(--border-muted); background: rgba(255,255,255,0.01); }
+        .data-table td { padding: 16px 24px; font-size: 13px; border-bottom: 1px solid var(--border-muted); color: var(--text-main); }
+        .status-pill { font-size: 10px; padding: 4px 8px; border-radius: 4px; font-weight: 700; }
+        .pill-sync { color: var(--accent-green); background: rgba(16, 185, 129, 0.1); }
+        .pill-error { color: var(--danger); background: rgba(239, 68, 68, 0.1); }
+        .evidence-banner { margin-top: 32px; background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, rgba(11, 14, 20, 0) 100%); border: 1px solid rgba(59, 130, 246, 0.3); padding: 24px 32px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .btn-terminal { background: var(--accent-blue); color: white; padding: 12px 24px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase; border: none; cursor: pointer; transition: 0.2s; }
+
+        /* 🚨 BETA MODAL STYLING */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(4px);
+        }
+        .modal-content {
+            background: var(--sidebar-dark);
+            margin: 15% auto;
+            padding: 40px;
+            border: 1px solid var(--border-muted);
+            width: 400px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .modal-content h2 { font-size: 20px; margin-bottom: 12px; color: #fff; }
+        .modal-content p { font-size: 14px; color: var(--text-dim); margin-bottom: 24px; line-height: 1.5; }
+        .btn-waitlist {
+            background: var(--accent-orange);
+            color: #000;
+            width: 100%;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">MARKETOPS <span>OS</span></div>
+
+        <div class="nav-section">
+            <span class="nav-label">Operational OS</span>
+            <a href="#" class="nav-item active"><i class="fa-solid fa-microchip"></i> Recovery Portal</a>
+            <a href="javascript:void(0)" onclick="openModal('Evidence Hub')" class="nav-item locked-feature">
+                <i class="fa-solid fa-database"></i> Evidence Hub <span class="badge-soon">Beta</span>
+            </a>
+            <a href="javascript:void(0)" onclick="openModal('AWS Ledgers')" class="nav-item locked-feature">
+                <i class="fa-solid fa-receipt"></i> AWS Ledgers <span class="badge-soon">Locked</span>
+            </a>
+        </div>
+
+        <div class="nav-section">
+            <span class="nav-label">Compliance</span>
+            <a href="connector.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> FTR Audit</a>
+            <a href="javascript:void(0)" onclick="openModal('HIPAA Tags')" class="nav-item locked-feature">
+                <i class="fa-solid fa-fingerprint"></i> HIPAA Tags <span class="badge-soon">Coming Soon</span>
+            </a>
+        </div>
+
+        <div style="margin-top: auto; border-top: 1px solid var(--border-muted); padding-top: 20px;">
+            <a href="index.html" class="nav-item"><i class="fa-solid fa-power-off"></i> Terminate Session</a>
+        </div>
+    </aside>
+
+    <main class="main-view">
+        <div class="top-bar">
+            <div class="view-title">
+                <h1>Recovery Portal</h1>
+                <p>MATCH_ENGINE_V2.0.4 // RECONCILIATION_LOG</p>
+            </div>
+            <div class="system-status">
+                <i class="fa-solid fa-bolt"></i> Boto3: Secure_Link_Active
+            </div>
+        </div>
+
+        <section class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-label">Net Expected</div>
+                <div class="metric-value">$14,250.00</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Bank Actuals</div>
+                <div class="metric-value">$12,100.00</div>
+            </div>
+            <div class="metric-card" style="border-left: 4px solid var(--accent-green);">
+                <div class="metric-label">Recovery Opportunity</div>
+                <div class="metric-value recovered">$02,150.00</div>
+            </div>
+        </section>
+
+        <div class="data-container">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Contract_ID</th>
+                        <th>Type</th>
+                        <th>Expected_Payout</th>
+                        <th>Disbursed</th>
+                        <th>Terminal_Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>CONT_8829_AX</td>
+                        <td>SAAS_SUBSCRIPTION</td>
+                        <td>$04,500.00</td>
+                        <td>$04,500.00</td>
+                        <td><span class="status-pill pill-sync">MATCHED</span></td>
+                    </tr>
+                    <tr style="background: rgba(239, 68, 68, 0.03);">
+                        <td>CONT_9941_BQ</td>
+                        <td>SAAS_METERED</td>
+                        <td>$02,150.00</td>
+                        <td style="color: var(--danger);">$00,000.00</td>
+                        <td><span class="status-pill pill-error">DISCREPANCY_DET</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <section class="evidence-banner">
+            <div class="evidence-text">
+                <h3>Audit Evidence Package: #9941_BQ</h3>
+                <p>Discrepancy detected in Metering Event logs vs AWS Disbursement report.</p>
+            </div>
+            <button class="btn-terminal">Execute Recovery Claim</button>
+        </section>
+    </main>
+
+    <div id="betaModal" class="modal">
+        <div class="modal-content">
+            <i class="fa-solid fa-lock" style="font-size: 32px; color: var(--accent-orange); margin-bottom: 20px;"></i>
+            <h2 id="modalTitle">Module Locked</h2>
+            <p>This feature is reserved for <b>Elite Tier</b> partners. Complete your initial <b>FTR Audit</b> to unlock strategic modules.</p>
+            <button class="btn-waitlist" onclick="closeModal()">Join the Waitlist</button>
+            <p style="margin-top: 15px; font-size: 11px; cursor: pointer; color: #475569;" onclick="closeModal()">Return to Terminal</p>
+        </div>
+    </div>
+
+    <script>
+        function openModal(name) {
+            document.getElementById('modalTitle').innerText = name + " Locked";
+            document.getElementById('betaModal').style.display = "block";
+        }
+        function closeModal() {
+            document.getElementById('betaModal').style.display = "none";
+        }
+        // Close modal on outside click
+        window.onclick = function(event) {
+            let modal = document.getElementById('betaModal');
+            if (event.target == modal) { modal.style.display = "none"; }
+        }
+    </script>
+</body>
+</html>

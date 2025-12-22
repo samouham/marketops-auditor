@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketOps Cloud – AWS Marketplace Experts</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* 🚨 STABLE NAVIGATION */
+        nav { background: #ffffff !important; height: 160px !important; display: flex !important; align-items: center !important; width: 100% !important; border-bottom: 1px solid #e5e7eb !important; position: sticky !important; top: 0 !important; z-index: 1000 !important; }
+        .nav-container { display: flex !important; align-items: center !important; justify-content: center !important; width: 100% !important; max-width: 1440px !important; margin: 0 auto !important; position: relative !important; }
+        .logo { position: absolute !important; left: 20px !important; top: 50% !important; transform: translateY(-50%) !important; }
+        .logo img { height: 120px !important; width: auto !important; display: block !important; }
+        .nav-links { display: flex !important; list-style: none !important; gap: 20px !important; align-items: center !important; margin-left: 150px !important; }
+        .nav-links a { text-decoration: none !important; color: #334155 !important; font-weight: 700 !important; font-size: 11px !important; text-transform: uppercase !important; }
+
+        /* 🔑 BUTTONS */
+        .login-btn { background: #ffffff !important; color: #ff9900 !important; border: 2px solid #ff9900 !important; padding: 10px 20px !important; border-radius: 10px !important; font-weight: 900 !important; text-decoration: none !important; margin-left: 15px !important; transition: 0.3s !important; }
+        .login-btn:hover { background: #ff9900 !important; color: #ffffff !important; }
+        .portal-btn { color: #ff9900 !important; border: 2px solid #ff9900 !important; padding: 10px 15px !important; border-radius: 10px !important; font-weight: 700 !important; }
+
+        /* 📊 HERO & AUDIT FORM */
+        .hero { padding: 80px 20px !important; text-align: center; background: #f8fafc; }
+        .hero h1 { font-size: 42px; color: #0b3c5d; font-weight: 900; }
+        .hero p { max-width: 700px; margin: 15px auto; color: #64748b; font-weight: 500; }
+
+        /* 📋 NEW INTEGRATED AUDIT FORM STYLE */
+        .audit-form-box { max-width: 600px; margin: -50px auto 40px auto; background: white; padding: 30px; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; z-index: 5; text-align: left; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .input-group { display: flex; flex-direction: column; gap: 5px; }
+        .input-group label { font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; }
+        .input-group input, .input-group select { padding: 12px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 14px; outline: none; transition: 0.3s; }
+        .input-group input:focus { border-color: #ff9900; }
+        
+        .audit-btn { background: #ff9900; color: white; width: 100%; padding: 18px; border-radius: 12px; border:none; font-weight: 800; cursor:pointer; font-size: 16px; margin-top: 10px; box-shadow: 0 4px 15px rgba(255,153,0,0.3); transition: 0.3s; }
+        .audit-btn:hover { transform: translateY(-2px); background: #e68a00; }
+        #status-msg { margin-top: 15px; font-size: 12px; font-weight: 700; text-align: center; }
+
+        /* 🚀 PROGRESS BAR STYLING */
+        .progress-container { display: none; background: #f8fafc; border-radius: 15px; padding: 20px; margin: 20px 0; border: 1px solid #e2e8f0; }
+        .progress-track { width: 100%; height: 8px; background: #e2e8f0; border-radius: 10px; overflow: hidden; margin-bottom: 15px; }
+        .progress-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #ff9900, #ffcc00); transition: width 0.4s ease; }
+        .step-item { font-size: 13px; font-weight: 700; color: #64748b; display: flex; align-items: center; gap: 10px; margin-bottom: 8px; transition: 0.3s; }
+
+        /* 🎴 6-CARD GRID SYSTEM */
+        .content-wrapper { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+        .cards-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 40px; }
+        .card { background: #f1f5f9; padding: 40px 30px; border-radius: 20px; border: 1px solid #e2e8f0; text-align: center; position: relative; overflow: hidden; transition: 0.3s ease; min-height: 250px; }
+        .card i { font-size: 45px; color: #ff9900; margin-bottom: 20px; }
+        .card h3 { color: #0b3c5d; margin-bottom: 15px; font-weight: 800; font-size: 20px; }
+        .card p { color: #334155; font-size: 14px; font-weight: 600; line-height: 1.6; }
+
+        .card-overlay { position: absolute; top: 100%; left: 0; width: 100%; height: 100%; background: #0b3c5d; color: white; display: flex; flex-direction: column; justify-content: center; padding: 30px; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-sizing: border-box; z-index: 2; }
+        .card:hover .card-overlay { top: 0; }
+        .card-overlay h4 { color: #ff9900; margin-bottom: 15px; font-size: 18px; font-weight: 800; }
+        .card-overlay ul { list-style: none; padding: 0; text-align: left; }
+        .card-overlay li { margin-bottom: 10px; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+        .card-overlay li::before { content: "✔"; color: #ff9900; font-weight: 900; }
+
+        .bottom-banner { background: linear-gradient(135deg, #0b3c5d 0%, #1e293b 100%); color: white; padding: 80px 20px; text-align: center; }
+        .cta-white { background: white; color: #0b3c5d; padding: 15px 40px; border-radius: 10px; text-decoration: none; font-weight: 800; display: inline-block; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-container">
+    <a href="index.html" class="logo">
+      <img src="assets/images/Logo.png.png" alt="MarketOps Cloud Logo">
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" style="color:#ff9900;">Home</a></li>
+      <li><a href="roadmap.html">Roadmap</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="specs.html">Specs</a></li>
+      <li><a href="hub.html">Hub</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="pricing.html" class="portal-btn">Subscription Hub</a></li>
+      <li><a href="portal.html" class="login-btn">LOGIN</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+    <h1>14-Day FTR Compliance Guarantee</h1>
+    <p>Automated reconciliation and forensic auditing to ensure you never leave cloud revenue on the table.</p>
+</header>
+
+<div class="audit-form-box">
+    <div style="display: flex; align-items: center; margin-bottom: 20px; gap: 10px;">
+        <i class="fa-solid fa-satellite-dish" style="color:#ff9900; font-size: 24px;"></i>
+        <h3 style="color:#0b3c5d; font-weight:800; margin:0;">Live Forensic Gateway</h3>
+    </div>
+
+    <div class="form-row">
+        <div class="input-group">
+            <label>Work Email</label>
+            <input type="email" id="email" placeholder="ceo@company.com">
+        </div>
+        <div class="input-group">
+            <label>SaaS Website</label>
+            <input type="text" id="website" placeholder="https://saas.com">
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="input-group">
+            <label>Annual AWS Revenue</label>
+            <select id="revenue">
+                <option value="$100k-$500k">$100k - $500k</option>
+                <option value="$500k-$2M">$500k - $2M</option>
+                <option value="$2M+">$2M+</option>
+            </select>
+        </div>
+        <div class="input-group">
+            <label>Compliance Goal</label>
+            <select id="goal">
+                <option value="FTR Approval">FTR Approval</option>
+                <option value="Cost Audit">Cost Audit</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="audit-progress" class="progress-container">
+        <div class="progress-track"><div id="bar-fill" class="progress-fill"></div></div>
+        <div id="step-1" class="step-item"><i class="fa-solid fa-circle-notch fa-spin"></i> Initializing Bedrock AI...</div>
+        <div id="step-2" class="step-item" style="opacity:0.3;"><i class="fa-solid fa-shield"></i> Scanning IAM & S3 Policies...</div>
+        <div id="step-3" class="step-item" style="opacity:0.3;"><i class="fa-solid fa-file-pdf"></i> Compiling Compliance Report...</div>
+    </div>
+
+    <button onclick="runForensicAudit()" id="submit-btn" class="audit-btn">
+        <i class="fa-solid fa-bolt"></i> RUN FORENSIC AUDIT
+    </button>
+
+    <div id="status-msg"></div>
+</div>
+
+<main class="content-wrapper">
+    <h2 style="text-align: center; color: #0b3c5d; font-weight: 800; font-size: 32px; margin-bottom: 40px;">Marketplace Managed Services</h2>
+    <div class="cards-container">
+        <div class="card"><i class="fa-solid fa-rocket"></i><h3>Rapid Launch</h3><p>KYC to live listing in weeks.</p><div class="card-overlay"><h4>Launch Hub</h4><ul><li>Tax & Legal Setup</li><li>Listing Optimization</li></ul></div></div>
+        <div class="card"><i class="fa-solid fa-shield-check"></i><h3>FTR Readiness</h3><p>Unlock AWS co-sell benefits.</p><div class="card-overlay"><h4>Compliance</h4><ul><li>Security Scans</li><li>Audit Preparation</li></ul></div></div>
+        <div class="card"><i class="fa-solid fa-magnifying-glass-dollar"></i><h3>Reconciliation</h3><p>Automated auditing engine.</p><div class="card-overlay"><h4>Finance Ops</h4><ul><li>3% Fee Verification</li><li>Dispute Automation</li></ul></div></div>
+        <div class="card"><i class="fa-solid fa-chart-line"></i><h3>Co-Sell Growth</h3><p>Drive revenue with AWS.</p><div class="card-overlay"><h4>Sales Motion</h4><ul><li>ACE Lead Sharing</li><li>CPPO Management</li></ul></div></div>
+        <div class="card"><i class="fa-solid fa-gears"></i><h3>API Integration</h3><p>Connect your SaaS billing.</p><div class="card-overlay"><h4>Engineering</h4><ul><li>Subscription API</li><li>Metering Service</li></ul></div></div>
+        <div class="card"><i class="fa-solid fa-headset"></i><h3>24/7 Support</h3><p>Expert Marketplace desk.</p><div class="card-overlay"><h4>Managed Desk</h4><ul><li>Buyer Onboarding</li><li>Reporting Analytics</li></ul></div></div>
+    </div>
+</main>
+
+<section class="bottom-banner">
+    <h2>Ready to grow your AWS revenue?</h2>
+    <a href="contact.html" class="cta-white">Talk to an Expert</a>
+</section>
+
+<footer class="site-footer" style="padding: 60px 20px; background: #f8fafc; border-top: 1px solid #e5e7eb;">
+  <div class="footer-container" style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px;">
+    <div class="footer-brand" style="flex: 1; min-width: 250px;">
+      <img src="assets/images/Logo.png.png" alt="MarketOps Cloud" style="height: 60px;">
+      <p style="color: #64748b; margin-top: 15px;">Accelerating cloud revenue for global ISVs through expert AWS Marketplace management.</p>
+    </div>
+    <div class="footer-column" style="flex: 1; min-width: 150px;">
+      <h4 style="color: #0b3c5d; margin-bottom: 20px;">Platform</h4>
+      <ul style="list-style: none; padding: 0; color: #64748b; line-height: 2;">
+        <li><a href="index.html" style="text-decoration:none; color:inherit;">Home</a></li>
+        <li><a href="roadmap.html" style="text-decoration:none; color:inherit;">Roadmap</a></li>
+        <li><a href="pricing.html" style="text-decoration:none; color:inherit;">Pricing</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom" style="max-width: 1200px; margin: 40px auto 0 auto; padding-top: 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: space-between; color: #94a3b8; font-size: 14px;">
+    <p>&copy; 2025 MarketOps Cloud. All rights reserved.</p>
+  </div>
+</footer>
+
+<div id="success-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(11, 60, 93, 0.9); z-index:9999; justify-content:center; align-items:center;">
+    <div style="background:white; width:90%; max-width:500px; padding:40px; border-radius:24px; text-align:center; position:relative; box-shadow: 0 20px 50px rgba(0,0,0,0.3);">
+        <div style="width:80px; height:80px; background:#DCFCE7; color:#15803D; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px auto; font-size:40px;">
+            <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <h2 style="color:#0b3c5d; margin-bottom:10px;">Audit Report Generated!</h2>
+        <p style="color:#64748b; font-size:16px; line-height:1.6;">Your <b>Compliance Shield PDF</b> has been downloaded. We identified critical blockers that may prevent your AWS Marketplace listing.</p>
+        
+        <div style="background:#f8fafc; padding:20px; border-radius:15px; margin:20px 0; border:1px solid #e2e8f0;">
+            <h4 style="margin:0; color:#0b3c5d;">14-Day FTR Guarantee</h4>
+            <p style="margin:5px 0 0 0; font-size:13px; color:#64748b;">Schedule a call to clear these red flags and go live on AWS Marketplace in 2 weeks.</p>
+        </div>
+
+        <a href="https://calendly.com/your-link" target="_blank" style="display:block; background:#ff9900; color:white; padding:18px; border-radius:12px; text-decoration:none; font-weight:800; font-size:16px; margin-bottom:15px;">
+            BOOK STRATEGY SESSION
+        </a>
+        
+        <button onclick="document.getElementById('success-modal').style.display='none'" style="background:none; border:none; color:#94a3b8; font-weight:700; cursor:pointer;">Close Window</button>
+    </div>
+</div>
+
+<script>
+    async function runForensicAudit() {
+        const btn = document.getElementById('submit-btn');
+        const progress = document.getElementById('audit-progress');
+        const bar = document.getElementById('bar-fill');
+        const status = document.getElementById('status-msg');
+        
+        const payload = {
+            email: document.getElementById('email').value,
+            website: document.getElementById('website').value,
+            revenue: document.getElementById('revenue').value,
+            goal: document.getElementById('goal').value,
+            ftr_status: "Scan Initiated",
+            volume: "Active"
+        };
+
+        if(!payload.email || !payload.website) {
+            alert("Please provide email and website for the forensic audit.");
+            return;
+        }
+
+        // --- 🚀 START PROGRESS ANIMATION ---
+        btn.style.display = 'none';
+        progress.style.display = 'block';
+        status.innerText = "";
+
+        // Reset step visuals
+        const steps = ['step-1', 'step-2', 'step-3'];
+        steps.forEach(s => {
+            document.getElementById(s).style.color = '#64748b';
+            document.getElementById(s).style.opacity = s === 'step-1' ? '1' : '0.3';
+        });
+
+        // Step 1: Initialize
+        bar.style.width = "33%";
+        await new Promise(r => setTimeout(r, 1200));
+        document.getElementById('step-1').style.color = '#15803d';
+        document.getElementById('step-1').innerHTML = '<i class="fa-solid fa-check"></i> Bedrock AI Engine Online';
+
+        // Step 2: Scan
+        document.getElementById('step-2').style.opacity = '1';
+        bar.style.width = "66%";
+        await new Promise(r => setTimeout(r, 1800));
+        document.getElementById('step-2').style.color = '#15803d';
+        document.getElementById('step-2').innerHTML = '<i class="fa-solid fa-check"></i> AWS Forensic Scan Complete';
+
+        // Step 3: API Call & PDF
+        document.getElementById('step-3').style.opacity = '1';
+        
+        try {
+            const response = await fetch('http://54.161.41.4:8001/api/v1/lead-capture', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (response.ok) {
+                bar.style.width = "100%";
+                document.getElementById('step-3').style.color = '#15803d';
+                document.getElementById('step-3').innerHTML = '<i class="fa-solid fa-check"></i> Compliance Shield Generated';
+                
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `MarketOps_Audit.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                
+                // Show Success Modal
+                document.getElementById('success-modal').style.display = 'flex';
+            } else {
+                status.style.color = '#dc2626';
+                status.innerText = "⚠️ Server Error. Check if main.py is running.";
+            }
+        } catch (err) {
+            status.style.color = '#dc2626';
+            status.innerText = "⚠️ Connection Refused. Ensure main.py is running.";
+        } finally {
+            // Keep progress visible for a moment then reset
+            setTimeout(() => {
+                btn.style.display = 'block';
+                progress.style.display = 'none';
+                bar.style.width = "0%";
+            }, 3000);
+        }
+    }
+</script>
+
+</body>
+</html>

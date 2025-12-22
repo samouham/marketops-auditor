@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Summary | MarketOps OS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Geist+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0B0E14;
+            --sidebar-dark: #12161F;
+            --border-muted: #242933;
+            --text-main: #E2E8F0;
+            --accent-blue: #3B82F6;
+            --accent-green: #10B981;
+            --accent-orange: #FF9900;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-deep); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
+
+        /* SIDEBAR (Consistent with Portal) */
+        .sidebar { width: 280px; background: var(--sidebar-dark); border-right: 1px solid var(--border-muted); display: flex; flex-direction: column; padding: 32px 20px; }
+        .sidebar-brand { font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 48px; color: #fff; }
+        .sidebar-brand span { color: var(--accent-orange); }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 12px; color: #94A3B8; text-decoration: none; font-size: 13px; font-weight: 600; border-radius: 6px; margin-bottom: 4px; }
+        .nav-item.active { color: #fff; background: rgba(59, 130, 246, 0.1); box-shadow: inset 3px 0 0 var(--accent-blue); }
+
+        .main-view { flex: 1; padding: 40px 60px; overflow-y: auto; }
+
+        /* CEO COMMAND HEADERS */
+        .welcome-row { margin-bottom: 40px; }
+        .welcome-row h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.05em; }
+        .welcome-row p { color: #94A3B8; margin-top: 8px; font-size: 16px; }
+
+        /* THE "BIG THREE" CEO METRICS */
+        .ceo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px; }
+        .ceo-card { background: var(--sidebar-dark); border: 1px solid var(--border-muted); padding: 32px; border-radius: 16px; position: relative; overflow: hidden; }
+        .ceo-card::after { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
+        .card-recovered::after { background: var(--accent-green); }
+        .card-compliance::after { background: var(--accent-blue); }
+        .card-risk::after { background: var(--accent-orange); }
+
+        .label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748B; letter-spacing: 0.1em; }
+        .value { font-family: 'Geist Mono', monospace; font-size: 36px; font-weight: 700; margin: 15px 0; letter-spacing: -1px; }
+        .trend { font-size: 12px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+        .up { color: var(--accent-green); }
+
+        /* 🤖 BEDROCK INSIGHTS PANEL */
+        .ai-insights-box { 
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(11, 14, 20, 0) 100%);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 40px;
+        }
+        .ai-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; font-weight: 800; font-size: 14px; color: var(--accent-blue); }
+        
+        .insight-item { 
+            display: flex; 
+            gap: 20px; 
+            background: rgba(255,255,255,0.02); 
+            padding: 20px; 
+            border-radius: 12px; 
+            margin-bottom: 12px; 
+            border: 1px solid transparent; 
+            transition: 0.2s;
+        }
+        .insight-item:hover { border-color: var(--border-muted); background: rgba(255,255,255,0.04); }
+        .insight-icon { font-size: 20px; color: var(--accent-orange); }
+        .insight-text h4 { font-size: 15px; margin-bottom: 5px; }
+        .insight-text p { font-size: 13px; color: #94A3B8; line-height: 1.5; }
+
+        /* COMPLIANCE MINI-WIDGET */
+        .bottom-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+        .widget { background: var(--sidebar-dark); border: 1px solid var(--border-muted); border-radius: 16px; padding: 24px; }
+        .widget-title { font-weight: 800; font-size: 14px; margin-bottom: 20px; color: #fff; }
+
+        .progress-bar { height: 8px; background: #1E293B; border-radius: 10px; margin: 10px 0; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--accent-blue); border-radius: 10px; }
+
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">MARKETOPS <span>OS</span></div>
+        <nav>
+            <a href="#" class="nav-item active"><i class="fa-solid fa-chart-line"></i> Executive Summary</a>
+            <a href="portal.html" class="nav-item"><i class="fa-solid fa-rotate"></i> Recovery Portal</a>
+            <a href="evidence-hub.html" class="nav-item"><i class="fa-solid fa-database"></i> Evidence Hub</a>
+            <a href="#" class="nav-item"><i class="fa-solid fa-shield-halved"></i> FTR Compliance</a>
+        </nav>
+    </aside>
+
+    <main class="main-view">
+        <section class="welcome-row">
+            <h1>Command Center</h1>
+            <p>MarketOps Cloud // December 2025 Financial Intelligence Report</p>
+        </section>
+
+        <section class="ceo-grid">
+            <div class="ceo-card card-recovered">
+                <div class="label">Total Revenue Recovered</div>
+                <div class="value">$128,402.10</div>
+                <div class="trend up"><i class="fa-solid fa-arrow-up"></i> 14.2% vs Last Month</div>
+            </div>
+            <div class="ceo-card card-compliance">
+                <div class="label">AWS FTR Health Score</div>
+                <div class="value">94.2%</div>
+                <div class="trend up"><i class="fa-solid fa-check"></i> Audit Ready</div>
+            </div>
+            <div class="ceo-card card-risk">
+                <div class="label">Pending Recovery Opp.</div>
+                <div class="value" style="color: var(--accent-orange);">$14,210.00</div>
+                <div class="trend" style="color: #94A3B8;">3 Active Claims</div>
+            </div>
+        </section>
+
+        <section class="ai-insights-box">
+            <div class="ai-header">
+                <i class="fa-solid fa-sparkles"></i> BEDROCK AI ANALYTICS_V4
+            </div>
+            
+            <div class="insight-item">
+                <div class="insight-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                <div class="insight-text">
+                    <h4>Contract Optimization Detected</h4>
+                    <p>AI analysis of <strong>Contract_9941_BQ</strong> suggests a shift to Private Offers could increase net margin by 8% based on current volume. Estimated annual gain: <strong>$22,500</strong>.</p>
+                </div>
+            </div>
+
+            <div class="insight-item">
+                <div class="insight-icon" style="color: var(--danger);"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <div class="insight-text">
+                    <h4>Compliance Drift Alert</h4>
+                    <p>FTR Audit sub-section 'S3 Encryption' has drifted from 100% to 88% in the last 24 hours. Action required to maintain <strong>Marketplace Seller Eligibility</strong>.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="bottom-grid">
+            <div class="widget">
+                <div class="widget-title">Recovery Timeline (Net Recovered)</div>
+                <div style="height: 150px; display: flex; align-items: flex-end; gap: 10px; padding-bottom: 10px;">
+                    <div style="background: var(--accent-blue); width: 100%; height: 40%; border-radius: 4px;"></div>
+                    <div style="background: var(--accent-blue); width: 100%; height: 60%; border-radius: 4px;"></div>
+                    <div style="background: var(--accent-blue); width: 100%; height: 55%; border-radius: 4px;"></div>
+                    <div style="background: var(--accent-blue); width: 100%; height: 85%; border-radius: 4px;"></div>
+                    <div style="background: var(--accent-green); width: 100%; height: 100%; border-radius: 4px;"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 10px; color: #475569; font-weight: 800;">
+                    <span>AUG</span><span>SEP</span><span>OCT</span><span>NOV</span><span>DEC</span>
+                </div>
+            </div>
+
+            <div class="widget">
+                <div class="widget-title">FTR Checklist Progress</div>
+                <div class="label" style="font-size: 9px;">Security & Reliability</div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+                <div class="label" style="font-size: 9px; margin-top: 15px;">Operational Excellence</div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 100%; background: var(--accent-green);"></div></div>
+                <div class="label" style="font-size: 9px; margin-top: 15px;">Customer Experience</div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 65%; background: var(--accent-orange);"></div></div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MarketOps | System Integration</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --navy-os: #0B1E33;
+      --action-blue: #3B82F6;
+      --forest-green: #15803D;
+      --border-subtle: #E5E7EB;
+      --text-main: #1F2937;
+      --text-muted: #6B7280;
+      --bg-surface: #F9FAFB;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg-surface); font-family: 'Inter', sans-serif; color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
+
+    /* --- SIDEBAR --- */
+    .sidebar { width: 260px; background: var(--navy-os); padding: 32px 20px; display: flex; flex-direction: column; flex-shrink: 0; }
+    .nav-link { display: flex; align-items: center; gap: 12px; padding: 12px 16px; color: #94A3B8; text-decoration: none; border-radius: 8px; font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+    .nav-link.active { background: rgba(255, 255, 255, 0.05); color: white; }
+
+    /* --- CONTENT AREA --- */
+    .main-workspace { flex: 1; padding: 60px; overflow-y: auto; display: grid; grid-template-columns: 1fr 300px; gap: 40px; }
+    
+    h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 32px; color: var(--navy-os); }
+    
+    .card { background: white; border: 1px solid var(--border-subtle); border-radius: 12px; padding: 32px; margin-bottom: 24px; position: relative; }
+    .card h2 { font-size: 18px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+    .card p { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
+
+    /* --- INPUT SPECS --- */
+    .input-label { display: block; font-size: 11px; font-weight: 700; color: var(--text-main); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.05em; }
+    .mono-input { width: 100%; padding: 14px; border: 1px solid var(--border-subtle); border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 13px; background: #F8FAFC; margin-bottom: 12px; }
+    
+    /* --- SECURITY BADGE (REFINED) --- */
+    .read-only-badge { font-size: 10px; font-weight: 800; color: var(--action-blue); background: #EFF6FF; border: 1px solid #BFDBFE; padding: 4px 10px; border-radius: 4px; letter-spacing: 0.02em; }
+    
+    .security-note { font-size: 12px; color: var(--forest-green); background: #F0FDF4; padding: 12px; border-radius: 6px; border: 1px solid #DCFCE7; margin-bottom: 20px; display: flex; gap: 10px; align-items: flex-start; }
+    
+    /* --- BUTTONS --- */
+    .btn-primary { background: var(--action-blue); color: white; border: none; padding: 14px 24px; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; }
+    .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+    
+    /* --- HEALTH SIDEBAR --- */
+    .health-card { background: white; border: 1px solid var(--border-subtle); border-radius: 12px; padding: 24px; }
+    .progress-item { margin-bottom: 20px; }
+    .progress-label { display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; margin-bottom: 8px; }
+    .bar-bg { height: 8px; background: #F1F5F9; border-radius: 4px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--action-blue); border-radius: 4px; transition: width 0.5s ease-in-out; }
+  </style>
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div style="margin-bottom: 40px;"><img src="assets/images/Logo.png.png" alt="MarketOps" style="height: 38px;"></div>
+    <nav>
+      <a href="app.html" class="nav-link"><i class="fa-solid fa-microchip"></i> Operational OS</a>
+      <a href="hub.html" class="nav-link"><i class="fa-solid fa-book"></i> Knowledge Hub</a>
+      <a href="settings.html" class="nav-link active"><i class="fa-solid fa-gear"></i> System Settings</a>
+    </nav>
+  </aside>
+
+  <div class="main-workspace">
+    <div class="integration-flow">
+      <h1>System Integration</h1>
+
+      <div class="card">
+        <div style="position: absolute; top: 32px; right: 32px;">
+           <span class="read-only-badge">READ-ONLY ACCESS</span>
+        </div>
+        <h2><i class="fa-brands fa-aws" style="color: #FF9900;"></i> 1. AWS Marketplace API</h2>
+        <p>Connect your seller account using a Cross-Account IAM Role. This allows our AI to audit disbursements and metadata drift in real-time.</p>
+        
+        <div class="security-note">
+          <i class="fa-solid fa-shield-check" style="margin-top: 2px;"></i>
+          <div>
+            <strong>Permission Scope:</strong> We only require <code>SecurityAudit</code> and <code>MarketplaceReporting</code>. We will never have access to your compute resources or customer PI data.
+          </div>
+        </div>
+
+        <label class="input-label">IAM Role ARN</label>
+        <input type="text" class="mono-input" placeholder="arn:aws:iam::123456789012:role/MarketOpsExecutionRole">
+        
+        <div style="display: flex; gap: 12px;">
+          <button class="btn-primary">Authenticate Connection</button>
+          <button style="background: none; border: 1px solid var(--border-subtle); padding: 12px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600;">
+            <i class="fa-solid fa-code"></i> View JSON Policy Modal
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2><i class="fa-solid fa-building-columns"></i> 2. Financial Settlement Account</h2>
+        <p>Securely link your bank account via Plaid. This creates the "Source C" feed required for Three-Way Reconciliation and FX slippage detection.</p>
+        <button class="btn-primary" style="background: #000;">Connect Bank via Plaid</button>
+      </div>
+
+      <div class="card">
+        <h2><i class="fa-solid fa-file-invoice-dollar"></i> 3. Legal & Tax Identity</h2>
+        <p>Upload your tax documentation to verify your withholding status. Documents are encrypted at rest with AES-256 industrial standards.</p>
+        <div style="border: 2px dashed var(--border-subtle); padding: 40px; text-align: center; border-radius: 12px; background: #F8FAFC; cursor: pointer;">
+          <i class="fa-solid fa-cloud-arrow-up" style="font-size: 32px; color: var(--action-blue); margin-bottom: 12px;"></i>
+          <p style="font-weight: 700; color: var(--text-main); margin-bottom: 0;">Drop W-9 / W-8BEN PDF here</p>
+          <span style="font-size: 11px; color: var(--text-muted);"><i class="fa-solid fa-lock" style="font-size: 10px;"></i> Encrypted Upload (AES-256)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="health-sidebar">
+      <div class="health-card">
+        <h3 style="font-size: 14px; font-weight: 800; margin-bottom: 24px; text-transform: uppercase;">Integration Health</h3>
+        
+        <div class="progress-item">
+          <div class="progress-label"><span>AWS MAPI</span><span>60%</span></div>
+          <div class="bar-bg"><div class="bar-fill" style="width: 60%;"></div></div>
+        </div>
+
+        <div class="progress-item">
+          <div class="progress-label"><span>BANK DATA (PLAID)</span><span>0%</span></div>
+          <div class="bar-bg"><div class="bar-fill" style="width: 0%; background: #E2E8F0;"></div></div>
+        </div>
+
+        <div class="progress-item" style="margin-bottom: 32px;">
+          <div class="progress-label"><span>TAX PROFILE</span><span>0%</span></div>
+          <div class="bar-bg"><div class="bar-fill" style="width: 0%; background: #E2E8F0;"></div></div>
+        </div>
+
+        <div style="padding: 16px; background: #F8FAFC; border-radius: 8px; border: 1px solid var(--border-subtle);">
+          <p style="font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase;">System Status</p>
+          <p style="font-size: 13px; font-weight: 600; color: #64748B;">
+            <i class="fa-solid fa-circle-notch fa-spin" style="margin-right: 6px;"></i> Awaiting Full Connection...
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

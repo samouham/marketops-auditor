@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketOps | Select Your Plan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --aws-blue: #232f3e; --aws-orange: #ff9900; --bg: #f8fafc; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; padding: 0; }
+        nav { background: var(--aws-blue); padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; color: white; }
+        .container { max-width: 1100px; margin: 60px auto; padding: 0 20px; text-align: center; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; margin-top: 50px; }
+        .card { background: white; padding: 40px; border-radius: 8px; border: 1px solid #e2e8f0; display: flex; flex-direction: column; text-align: left; transition: transform 0.3s ease; }
+        .featured { border: 2px solid var(--aws-orange); transform: scale(1.05); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        .price { font-size: 32px; font-weight: 800; margin: 20px 0; }
+        .price span { font-size: 14px; color: #64748b; font-weight: 400; }
+        .features { list-style: none; padding: 0; margin-bottom: 30px; flex-grow: 1; font-size: 14px; line-height: 2; }
+        .features li i { color: #16a34a; margin-right: 8px; }
+        .btn { display: block; text-align: center; padding: 15px; border-radius: 4px; text-decoration: none; font-weight: 700; transition: 0.2s; cursor: pointer; }
+        .btn-blue { background: var(--aws-blue); color: white; }
+        .btn-blue:hover { background: #1a252f; transform: translateY(-2px); }
+        .btn-orange { background: var(--aws-orange); color: white; }
+        .btn-orange:hover { background: #e68a00; transform: translateY(-2px); }
+        
+        /* Mobile Optimization */
+        @media (max-width: 900px) {
+            .pricing-grid { grid-template-columns: 1fr; gap: 40px; }
+            .featured { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+<nav>
+    <img src="assets/images/Logo.png.png" alt="MarketOps" style="height: 30px; filter: brightness(0) invert(1);">
+    <a href="login.html" style="color: white; text-decoration: none; font-size: 14px; font-weight: 600;">Sign In</a>
+</nav>
+
+<div class="container">
+    <h1>Simple, TAM-Level Pricing</h1>
+    <p style="color: #64748b;">Get your ISV listed correctly and scale your revenue faster.</p>
+
+    <div class="pricing-grid">
+        <div class="card">
+            <h3>ISV Launchpad</h3>
+            <div class="price">$2,500 <span>One-Time</span></div>
+            <ul class="features">
+                <li><i class="fa-solid fa-check"></i> Seller Registration & KYC</li>
+                <li><i class="fa-solid fa-check"></i> Hyperwallet & Tax Config</li>
+                <li><i class="fa-solid fa-check"></i> (1) SaaS or AMI Listing</li>
+            </ul>
+            <a href="https://buy.stripe.com/test_bJe8wRfL51r5fad6jd4AU00" class="btn btn-blue">Start Registration</a>
+        </div>
+
+<div class="card featured">
+    <h3>TAM Concierge</h3>
+    <div class="price">$500 <span>/ Month</span></div>
+    <ul class="features">
+        <li><i class="fa-solid fa-check"></i> Everything in Launchpad</li>
+        <li><i class="fa-solid fa-check"></i> CPPO & Private Offer Support</li>
+        <li><i class="fa-solid fa-check"></i> Monthly Listing Audits</li>
+    </ul>
+    <a href="https://buy.stripe.com/test_dRmaEZdCX8Tx3rvazt4AU01" class="btn btn-orange">Subscribe Now</a>
+</div>
+
+        <div class="card">
+            <h3>Enterprise</h3>
+            <div class="price">Custom <span>Pricing</span></div>
+            <ul class="features">
+                <li><i class="fa-solid fa-check"></i> Bulk Catalog Migration</li>
+                <li><i class="fa-solid fa-check"></i> Metered SaaS Config</li>
+                <li><i class="fa-solid fa-check"></i> Dedicated Slack Channel</li>
+                <li><i class="fa-solid fa-check"></i> Custom MSA/Legal Support</li>
+            </ul>
+            <a href="mailto:tam@marketopscloud.com?subject=Enterprise Inquiry&body=Hi MarketOps team, I'm interested in discussing custom Marketplace solutions." class="btn btn-blue">Contact Sales</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cloud Connection | MarketOps OS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Geist+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0B0E14;
+            --sidebar-dark: #12161F;
+            --border-muted: #242933;
+            --text-main: #E2E8F0;
+            --text-dim: #94A3B8;
+            --accent-blue: #3B82F6;
+            --accent-orange: #FF9900;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-deep); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
+
+        .sidebar { width: 280px; background: var(--sidebar-dark); border-right: 1px solid var(--border-muted); display: flex; flex-direction: column; padding: 32px 20px; }
+        .sidebar-brand { font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 48px; color: #fff; }
+        .sidebar-brand span { color: var(--accent-orange); }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; color: var(--text-dim); text-decoration: none; font-size: 13px; font-weight: 500; border-radius: 6px; margin-bottom: 4px; }
+        .nav-item.active { color: #fff; background: rgba(59, 130, 246, 0.1); box-shadow: inset 3px 0 0 var(--accent-blue); }
+
+        .main-view { flex: 1; padding: 40px 60px; overflow-y: auto; }
+
+        .setup-container { max-width: 800px; margin: 0 auto; }
+        .setup-header { margin-bottom: 40px; }
+        .setup-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.04em; }
+        .setup-header p { color: var(--text-dim); margin-top: 8px; font-size: 15px; }
+
+        /* SECURITY CARDS */
+        .conn-card { background: var(--sidebar-dark); border: 1px solid var(--border-muted); border-radius: 12px; padding: 30px; margin-bottom: 24px; }
+        .conn-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+        .conn-info { display: flex; align-items: center; gap: 15px; }
+        .aws-logo { background: #232F3E; width: 48px; height: 48px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #FF9900; }
+        
+        .role-input-box { background: #080a0f; border: 1px solid var(--border-muted); border-radius: 8px; padding: 20px; margin-top: 20px; }
+        .input-label { font-size: 10px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; display: block; }
+        .role-arn-input { width: 100%; background: transparent; border: none; color: #fff; font-family: 'Geist Mono', monospace; font-size: 14px; outline: none; }
+        
+        .external-id-row { display: flex; align-items: center; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-muted); }
+        .id-value { font-family: 'Geist Mono', monospace; color: var(--accent-blue); font-weight: 700; }
+
+        .copy-btn { background: transparent; border: 1px solid var(--border-muted); color: var(--text-dim); padding: 4px 10px; border-radius: 4px; font-size: 10px; cursor: pointer; transition: 0.2s; }
+        .copy-btn:hover { border-color: var(--accent-blue); color: #fff; }
+
+        .btn-connect { background: var(--accent-blue); color: #fff; border: none; padding: 14px 28px; border-radius: 6px; font-size: 13px; font-weight: 800; width: 100%; cursor: pointer; margin-top: 20px; }
+
+        .trust-banner { display: flex; align-items: center; gap: 10px; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); padding: 15px; border-radius: 8px; margin-top: 30px; }
+        .trust-banner i { color: var(--accent-green); }
+        .trust-banner p { font-size: 12px; color: var(--text-dim); line-height: 1.4; }
+
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">MARKETOPS <span>OS</span></div>
+        <nav>
+            <a href="ceo-summary.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> Executive Summary</a>
+            <a href="portal.html" class="nav-item"><i class="fa-solid fa-rotate"></i> Recovery Portal</a>
+            <a href="ftr-audit.html" class="nav-item"><i class="fa-solid fa-shield-halved"></i> FTR Shield</a>
+            <a href="#" class="nav-item active"><i class="fa-solid fa-link"></i> Cloud Connect</a>
+        </nav>
+    </aside>
+
+    <main class="main-view">
+        <div class="setup-container">
+            <header class="setup-header">
+                <h1>Cloud Connection</h1>
+                <p>Securely link your AWS Infrastructure via Cross-Account IAM Role.</p>
+            </header>
+
+            <div class="conn-card">
+                <div class="conn-row">
+                    <div class="conn-info">
+                        <div class="aws-logo"><i class="fa-brands fa-aws"></i></div>
+                        <div>
+                            <h3 style="font-size: 16px;">AWS Marketplace Seller Account</h3>
+                            <p style="font-size: 13px; color: var(--text-dim);">Required for Metering & Disbursement data.</p>
+                        </div>
+                    </div>
+                    <div style="font-size: 11px; font-family: 'Geist Mono'; color: var(--accent-orange);">UNCONNECTED</div>
+                </div>
+
+                <div class="role-input-box">
+                    <span class="input-label">IAM Role ARN</span>
+                    <input type="text" class="role-arn-input" placeholder="arn:aws:iam::123456789012:role/MarketOpsRole">
+                    
+                    <div class="external-id-row">
+                        <div>
+                            <span class="input-label" style="margin-bottom: 5px;">Required External ID</span>
+                            <div class="id-value">MARKETOPS-UUID-772-AX-991</div>
+                        </div>
+                        <button class="copy-btn">COPY ID</button>
+                    </div>
+                </div>
+
+                <button class="btn-connect">Initialize Secure Handshake</button>
+            </div>
+
+            <div class="trust-banner">
+                <i class="fa-solid fa-shield-check"></i>
+                <p><strong>Security Note:</strong> MarketOps OS uses <u>Read-Only</u> permissions for Marketplace data. For FTR Auto-Remediation, we use a scoped policy restricted to specific security groups and S3 metadata. No access to sensitive database content is requested.</p>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h4 style="font-size: 12px; color: #475569; text-transform: uppercase; margin-bottom: 20px;">Connection Checklist</h4>
+                <div style="font-size: 13px; color: var(--text-dim); display: flex; flex-direction: column; gap: 12px;">
+                    <p><i class="fa-solid fa-circle-check" style="color: var(--accent-blue);"></i> 1. Create IAM Role in your AWS Console.</p>
+                    <p><i class="fa-solid fa-circle-check" style="color: var(--accent-blue);"></i> 2. Attach the MarketOps-Policy.json.</p>
+                    <p><i class="fa-solid fa-circle-dot" style="color: var(--accent-blue);"></i> 3. Paste the ARN above and click Handshake.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evidence Vault | MarketOps OS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Geist+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0B0E14;
+            --sidebar-dark: #12161F;
+            --border-muted: #242933;
+            --text-main: #E2E8F0;
+            --text-dim: #94A3B8;
+            --accent-blue: #3B82F6;
+            --accent-green: #10B981;
+            --danger: #EF4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-deep); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; letter-spacing: -0.02em; }
+
+        /* SIDEBAR (REUSED) */
+        .sidebar { width: 280px; background: var(--sidebar-dark); border-right: 1px solid var(--border-muted); display: flex; flex-direction: column; padding: 32px 20px; }
+        .sidebar-brand { font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 48px; color: #fff; }
+        .sidebar-brand span { color: #FF9900; }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; color: var(--text-dim); text-decoration: none; font-size: 13px; font-weight: 500; border-radius: 6px; margin-bottom: 4px; }
+        .nav-item.active { color: #fff; background: rgba(59, 130, 246, 0.1); box-shadow: inset 3px 0 0 var(--accent-blue); }
+
+        .main-view { flex: 1; padding: 40px 60px; overflow-y: auto; }
+
+        /* FORENSIC HEADER */
+        .evidence-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 1px solid var(--border-muted); padding-bottom: 30px; }
+        .case-id-badge { font-family: 'Geist Mono', monospace; color: #fff; background: var(--accent-blue); padding: 4px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; margin-bottom: 12px; display: inline-block; }
+        .evidence-header h1 { font-size: 28px; font-weight: 800; letter-spacing: -0.04em; }
+
+        /* TRIANGULATION GRID */
+        .forensic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border-muted); border: 1px solid var(--border-muted); border-radius: 12px; overflow: hidden; margin-bottom: 40px; }
+        .data-node { background: var(--sidebar-dark); padding: 30px; }
+        .node-label { font-size: 10px; font-weight: 800; color: var(--text-dim); text-transform: uppercase; margin-bottom: 15px; letter-spacing: 0.1em; display: flex; align-items: center; gap: 6px; }
+        .node-value { font-family: 'Geist Mono', monospace; font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+        .node-fail-danger { border-left: 4px solid var(--danger); background: linear-gradient(to right, rgba(239, 68, 68, 0.05), transparent); }
+
+        /* IMMUTABLE VAULT */
+        .doc-vault { background: var(--sidebar-dark); border: 1px solid var(--border-muted); border-radius: 12px; }
+        .vault-header { padding: 20px 30px; border-bottom: 1px solid var(--border-muted); font-weight: 800; font-size: 11px; color: var(--text-dim); letter-spacing: 0.1em; }
+        .doc-item { display: flex; align-items: center; justify-content: space-between; padding: 20px 30px; border-bottom: 1px solid var(--border-muted); transition: background 0.2s; }
+        .doc-item:hover { background: rgba(255,255,255,0.02); }
+        .doc-info { display: flex; align-items: center; gap: 15px; }
+        .doc-icon { color: var(--accent-blue); font-size: 18px; }
+        .doc-name { font-size: 14px; font-weight: 600; color: #fff; }
+        .doc-meta { font-family: 'Geist Mono', monospace; font-size: 10px; color: var(--accent-green); margin-top: 4px; text-transform: uppercase; }
+
+        /* 🔒 VAULT PSYCHOLOGY: THE IMMUTABLE LOCK */
+        .lock-status { color: #475569; font-size: 14px; cursor: help; transition: color 0.2s; }
+        .lock-status:hover { color: var(--accent-green); }
+
+        /* 🤖 AI TELETYPE COVER LETTER */
+        .ai-preview { 
+            margin-top: 30px; 
+            padding: 30px; 
+            background: #080a0f; /* Fractionally darker for "Drafting Table" look */
+            border: 1px solid var(--border-muted);
+            border-left: 4px solid var(--accent-blue); /* The AI Identity Stripe */
+            border-radius: 8px; 
+            font-family: 'Geist Mono', monospace; 
+            font-size: 12px; 
+            line-height: 1.8; 
+            color: var(--text-dim);
+            position: relative;
+        }
+        .ai-label { 
+            position: absolute; 
+            top: -10px; 
+            left: 20px; 
+            background: var(--bg-deep); 
+            padding: 0 10px; 
+            color: var(--accent-blue); 
+            font-weight: 800; 
+            font-size: 10px; 
+            letter-spacing: 0.1em; 
+        }
+        .ai-preview strong { color: var(--text-main); }
+
+        .btn-bundle { background: var(--accent-blue); color: #fff; padding: 14px 28px; border-radius: 6px; font-size: 13px; font-weight: 800; border: none; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; }
+        .btn-bundle:hover { background: #2563EB; transform: translateY(-1px); box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); }
+
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">MARKETOPS <span>OS</span></div>
+        <nav>
+            <span style="font-size: 10px; color: #475569; font-weight: 800; margin-bottom: 12px; display: block; padding-left: 12px;">OPERATIONAL OS</span>
+            <a href="portal.html" class="nav-item"><i class="fa-solid fa-microchip"></i> Recovery Portal</a>
+            <a href="#" class="nav-item active"><i class="fa-solid fa-database"></i> Evidence Hub</a>
+            <a href="#" class="nav-item"><i class="fa-solid fa-receipt"></i> AWS Ledgers</a>
+        </nav>
+    </aside>
+
+    <main class="main-view">
+        <div class="evidence-header">
+            <div>
+                <div class="case-id-badge">INTERNAL_ID: AMZ-9941-BQ-2025</div>
+                <h1>Forensic Evidence Vault</h1>
+                <p style="color: var(--text-dim); font-size: 14px; margin-top: 8px;">Case Status: <span style="color: var(--accent-blue); font-weight: 700;">READY_FOR_DISPUTE</span></p>
+            </div>
+            <button class="btn-bundle" onclick="this.innerHTML='<i class=\'fa-solid fa-circle-notch fa-spin\'></i> INIT_SUCCESS_LOOP...'">
+                <i class="fa-solid fa-file-zipper"></i> Export AWS Support Bundle
+            </button>
+        </div>
+
+        <section class="forensic-grid">
+            <div class="data-node">
+                <div class="node-label"><i class="fa-solid fa-circle-check" style="color: var(--accent-green);"></i> Source: Metering Log</div>
+                <div class="node-value">$2,150.00</div>
+                <div class="doc-meta" style="margin-top: 10px;">SHA256: 8f2e...a91</div>
+            </div>
+            <div class="data-node">
+                <div class="node-label"><i class="fa-solid fa-circle-check" style="color: var(--accent-green);"></i> Ledger: AWS Invoice</div>
+                <div class="node-value">$2,150.00</div>
+                <div class="doc-meta" style="margin-top: 10px;">STATUS: INVOICED</div>
+            </div>
+            <div class="data-node node-fail-danger">
+                <div class="node-label" style="color: var(--danger);"><i class="fa-solid fa-triangle-exclamation"></i> Final: Disbursement</div>
+                <div class="node-value" style="color: var(--danger);">$0.00</div>
+                <div class="doc-meta" style="color: var(--danger); margin-top: 10px;">RECOVERY_OPP: $2,150.00</div>
+            </div>
+        </section>
+
+        <div class="doc-vault">
+            <div class="vault-header">SUPPORTING DOCUMENTATION (IMMUTABLE)</div>
+            
+            <div class="doc-item">
+                <div class="doc-info">
+                    <div class="doc-icon"><i class="fa-solid fa-file-code"></i></div>
+                    <div>
+                        <div class="doc-name">metering_events_raw.json</div>
+                        <div class="doc-meta">VERIFIED_COPY // HASH: 8f2e7b...a91</div>
+                    </div>
+                </div>
+                <i class="fa-solid fa-lock lock-status" title="Immutable Record: Verified against AWS CloudTrail."></i>
+            </div>
+
+            <div class="doc-item">
+                <div class="doc-info">
+                    <div class="doc-icon"><i class="fa-solid fa-file-pdf"></i></div>
+                    <div>
+                        <div class="doc-name">aws_disbursement_report_dec_25.pdf</div>
+                        <div class="doc-meta">MATCH_FAILURE_DETECTED // VOL_ID: 9941</div>
+                    </div>
+                </div>
+                <i class="fa-solid fa-lock lock-status" title="Immutable Record: Cryptographically locked by MarketOps Engine."></i>
+            </div>
+        </div>
+
+        <div class="ai-preview">
+            <div class="ai-label">AI_GENERATED_COVER_LETTER</div>
+            To: AWS Marketplace Support Team<br>
+            Date: 2025-12-21<br>
+            Reference: <strong>CASE_AMZ-9941-BQ</strong><br><br>
+            Subject: <strong>Discrepancy in Disbursement for Case AMZ-9941</strong><br><br>
+            MarketOps Cloud has identified a <strong>$2,150.00</strong> shortfall for Contract_9941_BQ. 
+            The attached <strong>metering_events_raw.json</strong> proves successful delivery of services, 
+            which were correctly invoiced but not reflected in the <strong>Disbursement Report</strong>. 
+            Please reconcile against internal AWS Ledger ID: <strong>VOL_ID_9941</strong>.
+        </div>
+
+        <div style="margin-top: 20px; font-size: 11px; color: var(--text-dim); font-family: 'Geist Mono';">
+            <i class="fa-solid fa-radar fa-fade"></i> Success Loop Active: System is polling AWS MAPI for credit adjustment matching this claim.
+        </div>
+    </main>
+
+</body>
+</html>
