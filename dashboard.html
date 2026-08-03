@@ -90,7 +90,6 @@
     <script>
         const API_URL = "https://2eytaets7y.us-east-1.awsapprunner.com";
         
-        // 🛡️ High-Reliability Clerk Initialization
         window.addEventListener('load', async () => {
             try {
                 await Clerk.load();
@@ -145,7 +144,7 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ 
                         arn: arn,
-                        regions: ["us-east-1"] // Prevents 504 Gateway Timeout
+                        regions: ["us-east-1"] 
                     }) 
                 });
                 
