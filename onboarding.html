@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sovereign-28 | Identity Resolution Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://clerk.marketopscloud.com/npm/@clerk/clerk-js@5/dist/clerk.browser.js" 
+            data-clerk-publishable-key="pk_live_Y2xlcmsubWFya2V0b3BzY2xvdWQuY29tJA" 
+            async crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900&family=JetBrains+Mono:wght@400;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #020617; color: #f8fafc; font-style: italic; margin: 0; padding: 0; }
+        .glass-portal { background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 1) 100%); backdrop-filter: blur(40px); border: 1px solid rgba(255, 255, 255, 0.15); box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.7); border-radius: 4rem; }
+        .step-node { border-left: 5px solid rgba(255, 255, 255, 0.05); transition: all 0.5s ease; padding: 1.5rem; }
+        .step-node.active { border-left: 5px solid #22d3ee; background: linear-gradient(to right, rgba(34, 211, 238, 0.1), transparent); opacity: 1 !important; }
+        .hidden-phase { display: none !important; }
+        .s28-input { background: rgba(0, 0, 0, 0.6) !important; border: 1px solid rgba(255, 255, 255, 0.2) !important; color: #22d3ee !important; font-family: 'JetBrains Mono', monospace !important; outline: none; }
+        .s28-input:focus { border-color: #22d3ee !important; box-shadow: 0 0 15px rgba(34, 211, 238, 0.3); }
+        .aws-orange { background: #ff9900; color: #000; transition: all 0.3s ease; }
+        .aws-orange:hover { background: #ec7211; transform: translateY(-2px); }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-8 relative overflow-hidden">
+    <div class="fixed inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-cyan-900/30 via-slate-950 to-black -z-10"></div>
+    
+    <div class="glass-portal w-full max-w-6xl flex flex-col lg:flex-row min-h-[700px] relative z-10 overflow-hidden text-left">
+        <div class="lg:w-2/5 p-12 border-r border-white/10 bg-black/20">
+            <div class="mb-16">
+                <h2 class="text-white font-black text-3xl uppercase tracking-tighter italic leading-none">Sovereign-28</h2>
+                <p class="text-cyan-400 text-[10px] font-mono uppercase tracking-[0.5em] mt-2 font-black">Identity Resolution Portal</p>
+            </div>
+            <div class="space-y-8">
+                <div id="guide-1" class="step-node active">
+                    <h4 class="text-white font-black text-xs uppercase tracking-widest mb-2">01. Provision</h4>
+                    <p class="text-slate-400 text-[11px] leading-relaxed">Deploy the Forensic Trust Anchor using the pre-signed JSON template.</p>
+                </div>
+                <div id="guide-2" class="step-node opacity-30">
+                    <h4 class="text-white font-black text-xs uppercase tracking-widest mb-2">02. Identification</h4>
+                    <p class="text-slate-400 text-[11px] leading-relaxed">Submit the generated IAM Role ARN for cryptographic verification.</p>
+                </div>
+                <div id="guide-3" class="step-node opacity-30">
+                    <h4 class="text-white font-black text-xs uppercase tracking-widest mb-2">03. Finalization</h4>
+                    <p class="text-slate-400 text-[11px] leading-relaxed">Handshake established. Redirecting to Institutional Dashboard.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="lg:w-3/5 p-12 md:p-20 flex flex-col justify-center bg-black/10">
+            
+            <div id="phase-1" class="space-y-10">
+                <h1 class="text-white font-black text-6xl tracking-tighter uppercase italic leading-tight">Initiate <br/><span class="text-cyan-400">Deployment.</span></h1>
+                <p class="text-slate-400 font-bold italic leading-relaxed">Sovereign-28 requires a Read-Only Trust Anchor. Use the button below to download the template, then launch CloudFormation to create the secure role.</p>
+                
+                <div class="flex flex-col gap-4">
+                    <button onclick="deployToAWS()" class="aws-orange w-full py-8 rounded-[2.5rem] font-black uppercase text-xs tracking-[0.3em] italic shadow-2xl flex items-center justify-center gap-3">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+                        Download & Launch CloudFormation ↗
+                    </button>
+                    <p class="text-[9px] text-center text-slate-500 font-mono uppercase tracking-widest italic">Note: After downloading, select "Upload a template file" in the AWS Console.</p>
+                </div>
+                
+                <button onclick="showPhase2()" class="w-full text-slate-500 font-black text-[10px] uppercase underline underline-offset-8 mt-4 tracking-widest">Stack successfully created? Phase 2 →</button>
+            </div>
+
+            <div id="phase-2" class="hidden-phase space-y-10">
+                <h1 class="text-white font-black text-6xl tracking-tighter uppercase italic leading-tight">Secure <br/><span class="text-emerald-400">Handshake.</span></h1>
+                <p class="text-slate-400 font-bold italic">Paste the <span class="text-white">'SovereignAuditorRole' ARN</span> found in the 'Outputs' tab of your CloudFormation stack.</p>
+                <form id="arn-form" class="space-y-6">
+                    <input type="text" id="arn-input" placeholder="arn:aws:iam::ACCOUNT_ID:role/Sovereign-28-Audit-Role" required class="s28-input w-full p-8 rounded-[2.5rem] text-sm focus:border-emerald-500">
+                    <button type="submit" id="sub-btn" class="w-full bg-emerald-500 text-black py-8 rounded-[2.5rem] font-black uppercase text-xs tracking-[0.3em] hover:scale-105 transition-all shadow-[0_0_30px_rgba(16,185,129,0.2)]">Verify Institutional Link</button>
+                </form>
+            </div>
+
+            <div id="phase-3" class="hidden-phase space-y-10 text-center">
+                <h1 class="text-white font-black text-6xl tracking-tighter uppercase italic leading-tight">Verification <br/><span class="text-cyan-400">Complete.</span></h1>
+                <div class="inline-flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/30 px-6 py-3 rounded-full mb-4">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="text-emerald-500 text-[10px] font-black uppercase tracking-widest">Identity Resolved</span>
+                </div>
+                <p class="text-slate-400 italic font-bold">Node synchronization successful. Accessing the Sovereign Control Node.</p>
+                <button onclick="window.location.href='/dashboard'" class="w-full bg-cyan-500 text-black py-8 rounded-[2.5rem] font-black uppercase text-xs tracking-[0.3em] hover:scale-105 transition-all">Enter Control Node →</button>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script>
+        const API_URL = "https://2eytaets7y.us-east-1.awsapprunner.com";
+        const INSTITUTIONAL_EXTERNAL_ID = "admin@marketopscloud.com";
+
+        function showPhase2() {
+            document.getElementById('phase-1').classList.add('hidden-phase');
+            document.getElementById('phase-2').classList.remove('hidden-phase');
+            document.getElementById('guide-1').classList.add('opacity-30');
+            document.getElementById('guide-2').classList.replace('opacity-30', 'active');
+        }
+
+        function showPhase3() {
+            document.getElementById('phase-2').classList.add('hidden-phase');
+            document.getElementById('phase-3').classList.remove('hidden-phase');
+            document.getElementById('guide-2').classList.add('opacity-30');
+            document.getElementById('guide-3').classList.replace('opacity-30', 'active');
+        }
+
+        function getSovereignTemplate() {
+            return {
+                "AWSTemplateFormatVersion": "2010-09-09",
+                "Description": "Sovereign-28 Institutional Audit Role - Cross-Account Trust Anchor",
+                "Resources": {
+                    "SovereignAuditorRole": {
+                        "Type": "AWS::IAM::Role",
+                        "Properties": {
+                            "RoleName": "Sovereign-28-Audit-Role",
+                            "AssumeRolePolicyDocument": {
+                                "Version": "2012-10-17",
+                                "Statement": [{
+                                    "Effect": "Allow",
+                                    "Principal": { "AWS": [
+                                        "arn:aws:iam::778367658348:root",
+                                        "arn:aws:iam::778367658348:role/Sovereign-Engine-Instance-Role"
+                                    ]},
+                                    "Action": "sts:AssumeRole",
+                                    "Condition": { "StringEquals": { "sts:ExternalId": INSTITUTIONAL_EXTERNAL_ID } }
+                                }]
+                            },
+                            "ManagedPolicyArns": ["arn:aws:iam::aws:policy/ReadOnlyAccess"],
+                            "Policies": [{
+                                "PolicyName": "Sovereign-Forensic-Scope",
+                                "PolicyDocument": {
+                                    "Version": "2012-10-17",
+                                    "Statement": [{
+                                        "Effect": "Allow",
+                                        "Action": ["ec2:DescribeRegions", "ec2:DescribeVolumes", "ce:GetCostAndUsage"],
+                                        "Resource": "*"
+                                    }]
+                                }
+                            }]
+                        }
+                    }
+                },
+                "Outputs": {
+                    "RoleArn": { "Description": "The ARN of the newly created Sovereign-28 Audit Role.", "Value": { "Fn::GetAtt": ["SovereignAuditorRole", "Arn"] } }
+                }
+            };
+        }
+
+        function deployToAWS() {
+            // 🏛️ Step 1: Force download of the correct JSON
+            downloadJSON();
+            
+            // 🏛️ Step 2: Open AWS Console at the Stack Creation page
+            // Note: Users must select 'Upload a template file' because we aren't using S3 hosting for the raw JSON.
+            const awsUrl = `https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/create/template`;
+            window.open(awsUrl, '_blank');
+        }
+
+        function downloadJSON() {
+            const template = getSovereignTemplate();
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(template, null, 2));
+            const dl = document.createElement('a');
+            dl.setAttribute("href", dataStr);
+            dl.setAttribute("download", `sovereign-audit-role.json`);
+            dl.click();
+        }
+
+        document.getElementById('arn-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('sub-btn');
+            const arnInput = document.getElementById('arn-input').value.trim();
+            
+            btn.innerText = "VERIFYING INSTITUTIONAL LINK..."; btn.disabled = true;
+
+            try {
+                const res = await fetch(`${API_URL}/api/register-aws-customer`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: INSTITUTIONAL_EXTERNAL_ID, arn: arnInput })
+                });
+
+                if (res.ok) {
+                    localStorage.setItem('s28_verified_arn', arnInput);
+                    showPhase3();
+                } else {
+                    const data = await res.json();
+                    alert(`Handshake Refused: Ensure the stack creation is COMPLETE and the ExternalID is exactly: ${INSTITUTIONAL_EXTERNAL_ID}`);
+                    btn.disabled = false; btn.innerText = "Verify Institutional Link";
+                }
+            } catch (err) {
+                alert("Synchronization Failure. Verify AWS App Runner Perimeter.");
+                btn.disabled = false; btn.innerText = "Retry Handshake";
+            }
+        });
+
+        window.addEventListener('load', () => {
+            Clerk.load().then(() => { if (!Clerk.user) window.location.href = "/"; });
+        });
+    </script>
+</body>
+</html>
