@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sovereign-28 | Identity Verification</title>
+    <script src="https://clerk.marketopscloud.com/npm/@clerk/clerk-js@5/dist/clerk.browser.js" 
+            data-clerk-publishable-key="pk_live_Y2xlcmsubWFya2V0b3BzY2xvdWQuY29tJA" 
+            async crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/_next/static/css/cde6a0799aa7e7b3.css">
+</head>
+<body class="bg-[#020617] flex items-center justify-center min-h-screen">
+    <div id="sign-in"></div>
+    <script>
+        window.addEventListener('load', function() {
+            Clerk.load().then(() => {
+                Clerk.mountSignUp(document.getElementById('sign-in'), {
+                    appearance: { theme: 'dark' },
+                    forceRedirectUrl: '/dashboard'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

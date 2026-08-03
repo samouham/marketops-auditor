@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sovereign-28 | Identity Resolution Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://clerk.marketopscloud.com/npm/@clerk/clerk-js@5/dist/clerk.browser.js" 
+            data-clerk-publishable-key="pk_live_Y2xlcmsubWFya2V0b3BzY2xvdWQuY29tJA" 
+            async crossorigin="anonymous"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        /* 🏛️ FORCE DESIGN STABILITY: Avoid "No Design" Blank State */
+        body { font-family: 'Inter', sans-serif; background-color: #020617; color: #f8fafc; font-style: italic; margin: 0; padding: 0; }
+        .glass-portal { 
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 1) 100%); 
+            backdrop-filter: blur(40px); 
+            border: 1px solid rgba(255, 255, 255, 0.15); 
+            box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.7); 
+            border-radius: 4rem;
+        }
+        .step-node { border-left: 5px solid rgba(255, 255, 255, 0.05); transition: all 0.5s ease; padding: 1.5rem; }
+        .step-node.active { border-left: 5px solid #22d3ee; background: linear-gradient(to right, rgba(34, 211, 238, 0.1), transparent); opacity: 1 !important; }
+        .glow-cyan { text-shadow: 0 0 15px rgba(34, 211, 238, 0.5); color: #22d3ee; }
+        .hidden-phase { display: none !important; }
+        
+        input { background: rgba(0, 0, 0, 0.6) !important; border: 1px solid rgba(255, 255, 255, 0.2) !important; color: #22d3ee !important; font-family: 'JetBrains Mono', monospace !important; outline: none; }
+        input:focus { border-color: #22d3ee !important; box-shadow: 0 0 15px rgba(34,211,238,0.3); }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-8 relative overflow-hidden">
+    <div class="fixed inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-cyan-900/30 via-slate-950 to-black -z-10"></div>
+
+    <div class="glass-portal w-full max-w-6xl flex flex-col lg:flex-row min-h-[700px] relative z-10 overflow-hidden">
+        <div class="lg:w-2/5 p-12 border-r border-white/10 bg-black/20">
+            <div class="mb-16">
+                <h2 class="text-white font-black text-3xl uppercase tracking-tighter italic leading-none">Sovereign-28</h2>
+                <p class="text-cyan-400 text-[10px] font-mono uppercase tracking-[0.5em] mt-2 font-black glow-cyan">Identity Resolution Protocol</p>
+            </div>
+            <div class="space-y-8">
+                <div id="guide-1" class="step-node active">
+                    <h4 class="text-white font-black text-xs uppercase tracking-widest mb-2">01. Provision</h4>
+                    <p class="text-slate-400 text-[11px] leading-relaxed not-italic">Deploy the JSON via CloudFormation to create the Audit Role.</p>
+                </div>
+                <div id="guide-2" class="step-node opacity-30">
+                    <h4 class="text-white font-black text-xs uppercase tracking-widest mb-2">02. Identification</h4>
+                    <p class="text-slate-400 text-[11px] leading-relaxed not-italic">Paste the generated IAM Role ARN into the terminal.</p>
+                </div>
+            </div>
+            <div class="mt-20 pt-8 border-t border-white/5 text-[9px] font-mono text-slate-500 uppercase tracking-widest italic">
+                Node_US_EAST_1 © 2026 MarketOps_Cloud
+            </div>
+        </div>
+
+        <div class="lg:w-3/5 p-12 md:p-20 flex flex-col justify-center bg-black/10">
+            <div id="phase-1" class="space-y-10">
+                <h1 class="text-white font-black text-6xl tracking-tighter uppercase italic leading-tight">Initiate <br/><span class="text-cyan-400">Deployment.</span></h1>
+                <p class="text-slate-500 font-bold italic text-sm">Download your personalized forensic template to begin the AWS handshake.</p>
+                <button onclick="downloadJSON()" class="w-full bg-white text-black py-8 rounded-[2.5rem] font-black uppercase text-xs tracking-[0.3em] hover:scale-[1.02] transition-all shadow-2xl">
+                    Download Forensic JSON ↓
+                </button>
+                <button onclick="showPhase2()" class="w-full text-cyan-500 font-black text-[10px] uppercase tracking-widest underline underline-offset-8 mt-4">
+                    Already deployed? Finalize Handshake Phase →
+                </button>
+            </div>
+
+            <div id="phase-2" class="hidden-phase space-y-10">
+                <h1 class="text-white font-black text-6xl tracking-tighter uppercase italic leading-tight">Secure <br/><span class="text-emerald-400">Handshake.</span></h1>
+                <form id="arn-form" class="space-y-6">
+                    <div class="space-y-2">
+                        <label class="text-[10px] uppercase font-black text-slate-500 tracking-widest ml-4">Institutional IAM ARN</label>
+                        <input type="text" id="arn-input" placeholder="arn:aws:iam::ACCOUNT_ID:role/Sovereign-28-Audit-Role" required class="w-full p-8 rounded-[2.5rem] text-sm">
+                    </div>
+                    <button type="submit" id="sub-btn" class="w-full bg-emerald-500 text-black py-8 rounded-[2.5rem] font-black uppercase text-xs tracking-[0.3em] hover:scale-[1.02] transition-all">
+                        Verify Institutional Link
+                    </button>
+                </form>
+                <button onclick="showPhase1()" class="w-full text-slate-600 font-black uppercase text-[10px] italic mt-8">
+                    ← Return to Provision Phase
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = "https://2eytaets7y.us-east-1.awsapprunner.com";
+
+        function downloadJSON() {
+            if (!window.Clerk || !Clerk.user) return alert("Identity Not Resolved. Log in first.");
+            const userEmail = Clerk.user.primaryEmailAddress.emailAddress;
+            const cft = { "AWSTemplateFormatVersion": "2010-09-09", "Resources": { "SovereignAuditor": { "Type": "AWS::IAM::Role", "Properties": { "RoleName": "Sovereign-28-Audit-Role", "AssumeRolePolicyDocument": { "Statement": [{ "Effect": "Allow", "Principal": { "AWS": "arn:aws:iam::778367658348:root" }, "Action": "sts:AssumeRole", "Condition": { "StringEquals": { "sts:ExternalId": userEmail } } }] }, "ManagedPolicyArns": ["arn:aws:iam::aws:policy/ReadOnlyAccess"] } } } };
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(cft, null, 2));
+            const dl = document.createElement('a'); dl.setAttribute("href", dataStr); dl.setAttribute("download", `sovereign-audit.json`); dl.click();
+        }
+
+        function showPhase2() { 
+            document.getElementById('phase-1').classList.add('hidden-phase'); 
+            document.getElementById('phase-2').classList.remove('hidden-phase'); 
+            document.getElementById('guide-1').classList.remove('active'); document.getElementById('guide-1').classList.add('opacity-30');
+            document.getElementById('guide-2').classList.add('active'); document.getElementById('guide-2').classList.remove('opacity-30');
+        }
+        
+        function showPhase1() { 
+            document.getElementById('phase-2').classList.add('hidden-phase'); 
+            document.getElementById('phase-1').classList.remove('hidden-phase'); 
+            document.getElementById('guide-2').classList.remove('active'); document.getElementById('guide-2').classList.add('opacity-30');
+            document.getElementById('guide-1').classList.add('active'); document.getElementById('guide-1').classList.remove('opacity-30');
+        }
+
+        document.getElementById('arn-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('sub-btn');
+            const arn = document.getElementById('arn-input').value;
+            btn.innerText = "VERIFYING HANDSHAKE..."; btn.disabled = true;
+
+            try {
+                const res = await fetch(`${API_URL}/api/register-aws-customer`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: Clerk.user.primaryEmailAddress.emailAddress, arn: arn })
+                });
+                if (res.status === 200) { window.location.href = "/dashboard?onboarded=true"; } 
+                else { alert("Handshake Rejected. Check ARN."); btn.disabled = false; btn.innerText = "Verify Institutional Link"; }
+            } catch (err) { alert("Node Timeout."); btn.disabled = false; }
+        });
+
+        window.addEventListener('load', () => {
+            Clerk.load().then(() => { if (!Clerk.user) window.location.href = "/"; });
+        });
+    </script>
+</body>
+</html>

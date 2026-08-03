@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sovereign-28 | Remediation Terminal</title>
+    <script src="https://clerk.marketopscloud.com/npm/@clerk/clerk-js@5/dist/clerk.browser.js" 
+            data-clerk-publishable-key="pk_live_Y2xlcmsubWFya2V0b3BzY2xvdWQuY29tJA" 
+            async crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/_next/static/css/cde6a0799aa7e7b3.css">
+</head>
+<body class="bg-[#020617] text-slate-300 font-mono">
+    <div class="min-h-screen p-6 md:p-12">
+        <nav class="flex justify-between items-center mb-12 border-b border-white/5 pb-8">
+            <div class="flex items-center gap-4">
+                <div class="text-[#38BDF8] w-10 h-10">🛡️</div>
+                <h1 class="text-white font-black text-2xl uppercase italic tracking-tighter">Remediation Node</h1>
+            </div>
+            <div id="user-button"></div>
+        </nav>
+
+        <div class="bg-black/80 border border-cyan-500/30 rounded-3xl p-8 shadow-2xl backdrop-blur-md">
+            <div id="terminal-log" class="space-y-3 text-xs md:text-sm">
+                <p class="text-cyan-500">[SYSTEM] Sovereign Remediation Node Online...</p>
+                <p class="text-slate-500">[INFO] Waiting for user authorization...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', function() {
+            Clerk.load().then(() => {
+                if (!Clerk.user) {
+                    window.location.href = "/sign-in";
+                } else {
+                    Clerk.mountUserButton(document.getElementById('user-button'), {
+                        afterSignOutUrl: window.location.origin + "/#sign-out"
+                    });
+                    
+                    const log = document.getElementById('terminal-log');
+                    log.innerHTML += `<p class="text-emerald-500">[AUTH] Verified: ${Clerk.user.primaryEmailAddress.emailAddress}</p>`;
+                    log.innerHTML += `<p class="text-white animate-pulse">[READY] Awaiting 100% Scan confirmation from App Runner API...</p>`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
