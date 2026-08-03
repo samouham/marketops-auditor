@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact – MarketOps Cloud</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* 🚨 STABLE NAVIGATION */
+        nav { background: #ffffff !important; height: 160px !important; display: flex !important; align-items: center !important; width: 100% !important; border-bottom: 1px solid #e5e7eb !important; position: sticky !important; top: 0 !important; z-index: 1000 !important; }
+        .nav-container { display: flex !important; align-items: center !important; justify-content: center !important; width: 100% !important; max-width: 1440px !important; margin: 0 auto !important; position: relative !important; }
+        .logo { position: absolute !important; left: 20px !important; top: 50% !important; transform: translateY(-50%) !important; }
+        .logo img { height: 120px !important; width: auto !important; }
+        .nav-links { display: flex !important; list-style: none !important; gap: 20px !important; align-items: center !important; margin-left: 150px !important; }
+        .nav-links a { text-decoration: none !important; color: #334155 !important; font-weight: 700 !important; font-size: 11px !important; text-transform: uppercase !important; }
+        .login-btn { background: #ffffff !important; color: #ff9900 !important; border: 2px solid #ff9900 !important; padding: 10px 20px !important; border-radius: 10px !important; font-weight: 900 !important; text-decoration: none !important; margin-left: 15px !important; transition: 0.3s !important; }
+        .login-btn:hover { background: #ff9900 !important; color: #ffffff !important; }
+
+        .hero { padding: 80px 20px; text-align: center; background: #f8fafc; }
+        .hero h1 { font-size: 42px; color: #0b3c5d; font-weight: 800; }
+
+        .contact-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; max-width: 1200px; margin: 60px auto; padding: 0 20px; }
+        .info-item { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-left: 5px solid #ff9900; margin-bottom: 20px; }
+        .info-item i { font-size: 24px; color: #0b3c5d; margin-bottom: 15px; }
+        
+        /* 🧙 WIZARD STYLES */
+        .inquiry-form-container { background: white; padding: 50px; border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.08); position: relative; min-height: 450px; }
+        
+        .progress-container { margin-bottom: 30px; display: flex; gap: 8px; }
+        .step-dot { flex: 1; height: 6px; background: #e2e8f0; border-radius: 10px; transition: 0.4s; }
+        .step-dot.active { background: #ff9900; }
+
+        .step { display: none; }
+        .step.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .step h2 { color: #0b3c5d; font-size: 24px; font-weight: 800; margin-bottom: 10px; }
+        .step p { color: #64748b; margin-bottom: 25px; font-size: 14px; }
+
+        .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .option-card { border: 2px solid #f1f5f9; padding: 18px; border-radius: 12px; cursor: pointer; font-weight: 700; color: #334155; text-align: center; transition: 0.3s; font-size: 14px; }
+        .option-card:hover { border-color: #ff9900; background: #fffaf5; }
+        .option-card.selected { border-color: #ff9900; background: #fffaf5; color: #ff9900; }
+
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group label { display: block; font-weight: 700; color: #0b3c5d; margin-bottom: 8px; }
+        .input-group input { width: 100%; padding: 14px; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 15px; box-sizing: border-box; }
+
+        .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; }
+        .btn-nav { padding: 14px 25px; border-radius: 10px; font-weight: 800; cursor: pointer; border: none; transition: 0.3s; }
+        .btn-next { background: #0b3c5d; color: white; }
+        .btn-next:hover { background: #ff9900; }
+        .btn-prev { background: #f1f5f9; color: #64748b; }
+
+        .bottom-banner { background: linear-gradient(135deg, #0b3c5d 0%, #1e293b 100%); color: white; padding: 80px 20px; text-align: center; }
+        .cta-white { background: white; color: #0b3c5d; padding: 15px 40px; border-radius: 10px; text-decoration: none; font-weight: 800; display: inline-block; margin-top: 20px; }
+    </style>
+</head>
+<body>
+<nav>
+  <div class="nav-container">
+    <a href="index.html" class="logo"><img src="assets/images/Logo.png.png" alt="Logo"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="roadmap.html">Roadmap</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="specs.html">Specs</a></li>
+      <li><a href="hub.html">Hub</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" style="color:#ff9900;">Contact</a></li>
+      <li><a href="pricing.html" class="portal-btn">Subscription Hub</a></li>
+      <li><a href="portal.html" class="login-btn">LOGIN</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1>Marketplace Readiness Assessment</h1>
+  <p>Find your recovery delta and unlock your AWS co-sell potential in 60 seconds.</p>
+</header>
+
+<main class="contact-layout">
+    <aside>
+        <div class="info-item"><i class="fa-solid fa-envelope"></i><h3>Email</h3><p>admin@marketopscloud.com</p></div>
+        <div class="info-item"><i class="fa-solid fa-location-dot"></i><h3>Headquarters</h3><p>Seattle, WA | Remote-First</p></div>
+        <div class="info-item"><i class="fa-solid fa-shield-check" style="color:#ff9900;"></i><h3>14-Day Guarantee</h3><p>We guarantee FTR badge submission readiness within 14 business days.</p></div>
+    </aside>
+
+    <section class="inquiry-form-container">
+        <div class="progress-container">
+            <div class="step-dot active"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+            <div class="step-dot"></div>
+        </div>
+
+        <form id="wizardForm">
+            <div class="step active">
+                <h2>Monthly Cloud Revenue</h2>
+                <p>Helps us estimate missing disbursements.</p>
+                <div class="option-grid">
+                    <div class="option-card" onclick="selectOption(this, 'revenue', '$0-$10k')">$0 - $10k</div>
+                    <div class="option-card" onclick="selectOption(this, 'revenue', '$10k-$100k')">$10k - $100k</div>
+                    <div class="option-card" onclick="selectOption(this, 'revenue', '$100k-$1M')">$100k - $1M</div>
+                    <div class="option-card" onclick="selectOption(this, 'revenue', '$1M+')">$1M+</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h2>FTR Badge Status</h2>
+                <p>Are you currently an AWS Qualified Software partner?</p>
+                <div class="option-grid">
+                    <div class="option-card" onclick="selectOption(this, 'ftr', 'Yes')">Active Badge</div>
+                    <div class="option-card" onclick="selectOption(this, 'ftr', 'No')">Not Started</div>
+                    <div class="option-card" onclick="selectOption(this, 'ftr', 'Working')">In Progress</div>
+                    <div class="option-card" onclick="selectOption(this, 'ftr', 'Expired')">Needs Renewal</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h2>Transaction Volume</h2>
+                <p>How many Private Offers (CPPO) do you run monthly?</p>
+                <div class="option-grid">
+                    <div class="option-card" onclick="selectOption(this, 'volume', 'Low')">1 - 5 Offers</div>
+                    <div class="option-card" onclick="selectOption(this, 'volume', 'Medium')">5 - 20 Offers</div>
+                    <div class="option-card" onclick="selectOption(this, 'volume', 'High')">20 - 100 Offers</div>
+                    <div class="option-card" onclick="selectOption(this, 'volume', 'Enterprise')">100+ Global</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h2>Primary Goal</h2>
+                <p>What is your most immediate need?</p>
+                <div class="option-grid">
+                    <div class="option-card" onclick="selectOption(this, 'goal', 'Recovery')">Recover Lost Funds</div>
+                    <div class="option-card" onclick="selectOption(this, 'goal', 'Compliance')">Pass FTR Audit</div>
+                    <div class="option-card" onclick="selectOption(this, 'goal', 'Listing')">New SaaS Listing</div>
+                    <div class="option-card" onclick="selectOption(this, 'goal', 'Strategy')">Marketplace Strategy</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <h2>Generate Report</h2>
+                <p>Enter your details to receive your Forensic Audit Roadmap.</p>
+                <div class="input-group">
+                    <label>Work Email</label>
+                    <input type="email" id="leadEmail" placeholder="name@company.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Company Website</label>
+                    <input type="url" id="leadWeb" placeholder="https://..." required>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button type="button" class="btn-nav btn-prev" id="prevBtn" onclick="moveStep(-1)" style="visibility:hidden;">Back</button>
+                <button type="button" class="btn-nav btn-next" id="nextBtn" onclick="moveStep(1)">Continue</button>
+            </div>
+        </form>
+    </section>
+</main>
+
+<section class="bottom-banner">
+  <h2>Prefer a Direct Call?</h2>
+  <p>Schedule a 15-minute consultation with a senior Marketplace Architect.</p>
+  <a href="#" class="cta-white">Book a Discovery Call</a>
+</section>
+
+<script>
+    let currentStep = 0;
+    const formData = {};
+    const steps = document.querySelectorAll(".step");
+    const dots = document.querySelectorAll(".step-dot");
+
+    function selectOption(el, category, val) {
+        formData[category] = val;
+        const siblings = el.parentElement.querySelectorAll(".option-card");
+        siblings.forEach(s => s.classList.remove("selected"));
+        el.classList.add("selected");
+        setTimeout(() => moveStep(1), 400); // Auto-advance
+    }
+
+    async function moveStep(n) {
+        if (currentStep + n >= steps.length) {
+            await submitWizard();
+            return;
+        }
+        if (currentStep + n < 0) return;
+
+        steps[currentStep].classList.remove("active");
+        dots[currentStep].classList.remove("active");
+        
+        currentStep += n;
+        
+        steps[currentStep].classList.add("active");
+        dots[currentStep].classList.add("active");
+
+        // UI Updates
+        document.getElementById("prevBtn").style.visibility = currentStep === 0 ? "hidden" : "visible";
+        document.getElementById("nextBtn").innerText = currentStep === steps.length - 1 ? "Get My Audit Report" : "Continue";
+    }
+
+    async function submitWizard() {
+        formData.email = document.getElementById("leadEmail").value;
+        formData.website = document.getElementById("leadWeb").value;
+
+        if(!formData.email) {
+            alert("Please provide an email.");
+            return;
+        }
+
+        try {
+            const response = await fetch('http://127.0.0.1:8000/api/v1/lead-capture', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                alert("Success! Your compliance assessment has been sent to the forensic team.");
+                window.location.href = "hub.html";
+            }
+        } catch (err) {
+            alert("Connection error. Ensure main.py is running!");
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us – MarketOps Cloud</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        nav { background: #ffffff !important; height: 160px !important; display: flex !important; align-items: center !important; width: 100% !important; border-bottom: 1px solid #e5e7eb !important; position: sticky !important; top: 0 !important; z-index: 1000 !important; }
+        .nav-container { display: flex !important; align-items: center !important; justify-content: center !important; width: 100% !important; max-width: 1440px !important; margin: 0 auto !important; position: relative !important; }
+        .logo { position: absolute !important; left: 20px !important; top: 50% !important; transform: translateY(-50%) !important; }
+        .logo img { height: 120px !important; width: auto !important; }
+        .nav-links { display: flex !important; list-style: none !important; gap: 20px !important; align-items: center !important; margin-left: 150px !important; }
+        .nav-links a { text-decoration: none !important; color: #334155 !important; font-weight: 700 !important; font-size: 11px !important; text-transform: uppercase !important; }
+        .login-btn { background: #ffffff !important; color: #ff9900 !important; border: 2px solid #ff9900 !important; padding: 10px 20px !important; border-radius: 10px !important; font-weight: 900 !important; text-decoration: none !important; margin-left: 15px !important; transition: 0.3s !important; }
+        .login-btn:hover { background: #ff9900 !important; color: #ffffff !important; }
+
+        .hero { padding: 80px 20px; text-align: center; background: #f8fafc; }
+        .hero h1 { font-size: 42px; color: #0b3c5d; font-weight: 800; }
+
+        .mission-statement { max-width: 800px; margin: 60px auto; text-align: center; padding: 0 20px; }
+        .mission-statement p { font-size: 22px; color: #4b5563; line-height: 1.6; }
+        .mission-tag { color: #ff9900; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
+
+        .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 60px auto; padding: 0 20px; }
+        .value-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 5px solid #0b3c5d; text-align: center; }
+        .value-card i { font-size: 40px; color: #ff9900; margin-bottom: 20px; }
+        .value-card h3 { color: #0b3c5d; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+<nav>
+  <div class="nav-container">
+    <a href="index.html" class="logo"><img src="assets/images/Logo.png.png" alt="Logo"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="roadmap.html">Roadmap</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="specs.html">Specs</a></li>
+      <li><a href="hub.html">Hub</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="about.html" style="color:#ff9900;">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="pricing.html" class="portal-btn">Subscription Hub</a></li>
+      <li><a href="portal.html" class="login-btn">LOGIN</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1>Our Story & Mission</h1>
+  <p>Bridging the gap between complex cloud ecosystems and the vendors who scale within them.</p>
+</header>
+
+<main>
+    <section class="mission-statement">
+        <span class="mission-tag">The Mission</span>
+        <p style="font-style: italic; color: #0b3c5d; font-weight: 700; margin-top: 20px;">
+            "To simplify the AWS Marketplace experience for businesses of all sizes, turning complexity into actionable results."
+        </p>
+    </section>
+
+    <div class="values-grid">
+        <div class="value-card">
+            <i class="fa-solid fa-bullseye"></i>
+            <h3>Precision First</h3>
+            <p>Meticulous submission standards to avoid costly listing rejections.</p>
+        </div>
+        <div class="value-card">
+            <i class="fa-solid fa-handshake"></i>
+            <h3>True Partnership</h3>
+            <p>We act as an extension of your team, not just an outside consultant.</p>
+        </div>
+        <div class="value-card">
+            <i class="fa-solid fa-gauge-high"></i>
+            <h3>Focus on Speed</h3>
+            <p>Optimized workflows to get your products live in record time.</p>
+        </div>
+    </div>
+</main>
+</body>
+</html>

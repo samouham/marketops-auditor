@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTR Shield | MarketOps OS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Geist+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #0B0E14;
+            --sidebar-dark: #12161F;
+            --border-muted: #242933;
+            --text-main: #E2E8F0;
+            --text-dim: #94A3B8;
+            --accent-blue: #3B82F6;
+            --accent-green: #10B981;
+            --accent-orange: #FF9900;
+            --danger: #EF4444;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-deep); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; letter-spacing: -0.02em; }
+
+        .sidebar { width: 280px; background: var(--sidebar-dark); border-right: 1px solid var(--border-muted); display: flex; flex-direction: column; padding: 32px 20px; }
+        .sidebar-brand { font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 48px; color: #fff; }
+        .sidebar-brand span { color: var(--accent-orange); }
+        .nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 12px; color: var(--text-dim); text-decoration: none; font-size: 13px; font-weight: 500; border-radius: 6px; margin-bottom: 4px; }
+        .nav-item.active { color: #fff; background: rgba(59, 130, 246, 0.1); box-shadow: inset 3px 0 0 var(--accent-blue); }
+
+        .main-view { flex: 1; padding: 40px 60px; overflow-y: auto; }
+
+        /* ⭕ THE PROGRESS RING SECTION */
+        .ftr-hero { display: flex; align-items: center; justify-content: space-between; margin-bottom: 50px; background: rgba(59, 130, 246, 0.03); padding: 40px; border-radius: 20px; border: 1px solid var(--border-muted); }
+        
+        .progress-circle-container { position: relative; width: 120px; height: 120px; }
+        .progress-circle { transform: rotate(-90deg); width: 100%; height: 100%; }
+        .progress-circle circle { fill: none; stroke-width: 8; stroke-linecap: round; }
+        .circle-bg { stroke: var(--border-muted); }
+        .circle-fill { stroke: var(--accent-blue); stroke-dasharray: 283; stroke-dashoffset: 42; /* 85% */ transition: stroke-dashoffset 1s ease; }
+
+        .percentage { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-family: 'Geist Mono', monospace; font-size: 22px; font-weight: 700; color: #fff; }
+
+        .hero-text h1 { font-size: 28px; font-weight: 800; }
+        .hero-text p { color: var(--text-dim); font-size: 14px; margin-top: 4px; }
+
+        .btn-auditor { background: #fff; color: #000; padding: 12px 20px; border-radius: 6px; font-size: 12px; font-weight: 800; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+
+        /* CATEGORY GROUPING */
+        .category-block { margin-bottom: 40px; }
+        .category-header { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .category-header h3 { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.15em; white-space: nowrap; }
+        .category-line { flex: 1; height: 1px; background: var(--border-muted); }
+
+        /* DRIFT CARDS */
+        .audit-card { background: var(--sidebar-dark); border: 1px solid var(--border-muted); border-radius: 12px; margin-bottom: 16px; transition: 0.2s; }
+        .audit-card:hover { border-color: #3b82f655; }
+        
+        .card-top { padding: 24px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
+        
+        .drift-status { font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 4px; display: flex; align-items: center; gap: 5px; }
+        .status-secured { color: var(--accent-green); background: rgba(16, 185, 129, 0.1); }
+        .status-drifted { color: var(--accent-orange); background: rgba(255, 153, 0, 0.1); }
+
+        .item-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .item-desc { font-size: 12px; color: var(--text-dim); }
+
+        /* BEDROCK REASONING DROPDOWN */
+        .bedrock-reasoning { background: #080a0f; padding: 20px 24px; border-top: 1px solid var(--border-muted); font-size: 13px; line-height: 1.6; }
+        .ai-badge { display: inline-flex; align-items: center; gap: 6px; color: var(--accent-blue); font-family: 'Geist Mono', monospace; font-size: 10px; font-weight: 800; margin-bottom: 10px; }
+
+        .action-row { display: flex; justify-content: flex-end; gap: 12px; margin-top: 15px; padding-top: 15px; border-top: 1px solid #1e293b; }
+        .btn-fix { background: var(--accent-blue); color: #fff; border: none; padding: 8px 16px; border-radius: 4px; font-size: 11px; font-weight: 700; cursor: pointer; }
+
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">MARKETOPS <span>OS</span></div>
+        <nav>
+            <a href="ceo-summary.html" class="nav-item"><i class="fa-solid fa-chart-line"></i> Executive Summary</a>
+            <a href="portal.html" class="nav-item"><i class="fa-solid fa-rotate"></i> Recovery Portal</a>
+            <a href="evidence-hub.html" class="nav-item"><i class="fa-solid fa-database"></i> Evidence Hub</a>
+            <a href="#" class="nav-item active"><i class="fa-solid fa-shield-halved"></i> FTR Shield</a>
+        </nav>
+    </aside>
+
+    <main class="main-view">
+        
+        <section class="ftr-hero">
+            <div class="hero-text">
+                <h1>FTR Foundational Shield</h1>
+                <p>Monitoring 32 AWS Marketplace Foundational Technical Requirements</p>
+                <div style="margin-top: 20px;">
+                    <button class="btn-auditor">
+                        <i class="fa-solid fa-file-pdf"></i> Generate Auditor-Ready PDF
+                    </button>
+                </div>
+            </div>
+            <div class="progress-circle-container">
+                <svg class="progress-circle" viewBox="0 0 100 100">
+                    <circle class="circle-bg" cx="50" cy="50" r="45"></circle>
+                    <circle class="circle-fill" cx="50" cy="50" r="45"></circle>
+                </svg>
+                <div class="percentage">85%</div>
+            </div>
+        </section>
+
+        <div class="category-block">
+            <div class="category-header">
+                <h3>1.0 Security & Identity</h3>
+                <div class="category-line"></div>
+            </div>
+
+            <div class="audit-card">
+                <div class="card-top">
+                    <div>
+                        <div class="item-title">SEC-001: Root Account MFA</div>
+                        <div class="item-desc">Ensures no programmatic access and MFA is active on the root user.</div>
+                    </div>
+                    <div class="drift-status status-secured"><i class="fa-solid fa-shield-check"></i> SECURED</div>
+                </div>
+            </div>
+
+            <div class="audit-card" style="border-left: 4px solid var(--accent-orange);">
+                <div class="card-top">
+                    <div>
+                        <div class="item-title">SEC-005: S3 Public Access Block</div>
+                        <div class="item-desc">Global configuration to prevent accidental bucket exposure.</div>
+                    </div>
+                    <div class="drift-status status-drifted"><i class="fa-solid fa-triangle-exclamation"></i> DRIFT_DETECTED</div>
+                </div>
+                <div class="bedrock-reasoning">
+                    <div class="ai-badge"><i class="fa-solid fa-sparkles"></i> BEDROCK_ANALYSIS</div>
+                    <p style="color: var(--text-dim);">Bedrock analyzed CloudTrail Log <strong>#772-AX</strong> and identified a configuration change to <code>s3:PutBucketPublicAccessBlock</code> at 04:12 UTC. One bucket [marketops-prod-logs] is now exposed.</p>
+                    <div class="action-row">
+                        <span style="color: var(--accent-orange); font-size: 11px; font-weight: 700; margin-right: auto;">AI-Remediation Script Ready</span>
+                        <button class="btn-fix">EXECUTE AUTO-FIX</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category-block">
+            <div class="category-header">
+                <h3>2.0 Reliability</h3>
+                <div class="category-line"></div>
+            </div>
+
+            <div class="audit-card">
+                <div class="card-top">
+                    <div>
+                        <div class="item-title">REL-002: Cross-AZ Redundancy</div>
+                        <div class="item-desc">Compute and database assets must span at least two Availability Zones.</div>
+                    </div>
+                    <div class="drift-status status-secured"><i class="fa-solid fa-shield-check"></i> SECURED</div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+</body>
+</html>

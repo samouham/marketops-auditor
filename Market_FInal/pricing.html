@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing – MarketOps Cloud</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* 🚨 STABLE NAVIGATION - Matched to Roadmap/Index Example */
+        nav { background: #ffffff !important; height: 160px !important; display: flex !important; align-items: center !important; width: 100% !important; border-bottom: 1px solid #e5e7eb !important; position: sticky !important; top: 0 !important; z-index: 1000 !important; }
+        .nav-container { display: flex !important; align-items: center !important; justify-content: center !important; width: 100% !important; max-width: 1440px !important; margin: 0 auto !important; position: relative !important; }
+        .logo { position: absolute !important; left: 20px !important; top: 50% !important; transform: translateY(-50%) !important; }
+        .logo img { height: 120px !important; width: auto !important; display: block !important; }
+        .nav-links { display: flex !important; list-style: none !important; gap: 20px !important; align-items: center !important; margin-left: 150px !important; }
+        .nav-links a { text-decoration: none !important; color: #334155 !important; font-weight: 700 !important; font-size: 11px !important; text-transform: uppercase !important; }
+        .login-btn { background: #ffffff !important; color: #ff9900 !important; border: 2px solid #ff9900 !important; padding: 10px 20px !important; border-radius: 10px !important; font-weight: 900 !important; text-decoration: none !important; margin-left: 15px !important; transition: 0.3s !important; }
+        .login-btn:hover { background: #ff9900 !important; color: #ffffff !important; }
+        .portal-btn { color: #ff9900 !important; border: 2px solid #ff9900 !important; padding: 10px 15px !important; border-radius: 10px !important; font-weight: 700 !important; }
+
+        /* 💰 PRICING PAGE STYLES */
+        .hero { padding: 100px 20px 60px; text-align: center; background: #f8fafc; }
+        .hero h1 { font-size: 48px; color: #0b3c5d; font-weight: 900; margin-bottom: 15px; }
+        .hero p { font-size: 18px; color: #64748b; max-width: 700px; margin: 0 auto; }
+
+        .cards-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1250px; margin: 60px auto; padding: 0 20px; align-items: stretch; }
+        .price-card { background: white; padding: 50px 35px; border-radius: 24px; border: 1px solid #e2e8f0; text-align: center; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; }
+        
+        /* FEATURED TIER: THE DELTA RECOVERY */
+        .price-card.featured { border: 3px solid #ff9900; transform: scale(1.05); box-shadow: 0 25px 50px rgba(0,0,0,0.1); position: relative; z-index: 2; }
+        .badge { background: #ff9900; color: white; padding: 8px 20px; border-radius: 50px; font-size: 12px; font-weight: 900; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); letter-spacing: 1px; }
+
+        .price-header h3 { color: #0b3c5d; font-size: 26px; font-weight: 800; margin-bottom: 5px; }
+        .price-header p { color: #64748b; font-size: 14px; margin-bottom: 25px; font-weight: 500; }
+
+        .price-amount { font-size: 54px; font-weight: 900; color: #0b3c5d; margin-bottom: 5px; }
+        .price-amount span { font-size: 18px; color: #64748b; font-weight: 500; }
+        .recovery-fee { color: #15803d; font-weight: 800; font-size: 16px; margin-bottom: 25px; text-transform: uppercase; }
+
+        .pricing-features { list-style: none; padding: 0; margin: 30px 0; text-align: left; flex-grow: 1; }
+        .pricing-features li { margin-bottom: 15px; font-size: 15px; display: flex; align-items: flex-start; gap: 12px; color: #334155; font-weight: 500; }
+        .pricing-features i { color: #ff9900; margin-top: 4px; }
+
+        .cta-btn { display: block; width: 100%; padding: 18px; border-radius: 12px; text-decoration: none; font-weight: 800; font-size: 16px; transition: 0.3s; text-align: center; border: none; cursor: pointer; }
+        .cta-outline { border: 2px solid #0b3c5d; color: #0b3c5d; background: transparent; }
+        .cta-outline:hover { background: #0b3c5d; color: white; }
+        .cta-orange { background: #ff9900; color: white; box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3); }
+        .cta-orange:hover { background: #e68a00; transform: translateY(-2px); }
+
+        /* SECURITY FOOTER */
+        .security-banner { max-width: 1000px; margin: 80px auto; display: flex; align-items: center; justify-content: center; gap: 40px; border-top: 1px solid #e2e8f0; padding-top: 50px; }
+        .security-item { text-align: center; color: #64748b; }
+        .security-item i { font-size: 24px; color: #0b3c5d; margin-bottom: 10px; }
+        .security-item p { font-size: 13px; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-container">
+    <a href="index.html" class="logo"><img src="assets/images/Logo.png.png" alt="MarketOps Cloud Logo"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="roadmap.html">Roadmap</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="specs.html">Specs</a></li>
+      <li><a href="hub.html">Hub</a></li>
+      <li><a href="pricing.html" style="color:#ff9900;">Pricing</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="pricing.html" class="portal-btn">Subscription Hub</a></li>
+      <li><a href="portal.html" class="login-btn">LOGIN</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1>Built for Revenue Recovery</h1>
+  <p>The only platform that prices based on the <b>Revenue Delta</b>. We don't get paid unless we find your missing funds.</p>
+</header>
+
+<main class="cards-container">
+    <div class="price-card">
+        <div class="price-header">
+            <h3>Revenue Auditor</h3>
+            <p>Initial leakage discovery.</p>
+        </div>
+        <div class="price-amount">$0 <span>/mo</span></div>
+        <div class="recovery-fee">Scan 1 Month Free</div>
+        <ul class="pricing-features">
+            <li><i class="fa-solid fa-circle-check"></i> Basic Forensic Audit</li>
+            <li><i class="fa-solid fa-circle-check"></i> (1) AWS Marketplace Account</li>
+            <li><i class="fa-solid fa-circle-check"></i> Disbursement Ledger Access</li>
+            <li><i class="fa-solid fa-circle-check"></i> Identified Recovery Delta</li>
+        </ul>
+        <a href="portal.html" class="cta-btn cta-outline">Start Free Audit</a>
+    </div>
+
+    <div class="price-card featured">
+        <span class="badge">VALUE PARTNER</span>
+        <div class="price-header">
+            <h3>Managed Recovery</h3>
+            <p>Full-scale auditing & fund reclamation.</p>
+        </div>
+        <div class="price-amount">$499 <span>/mo</span></div>
+        <div class="recovery-fee">+ 5% OF RECOVERED FUNDS</div>
+        <ul class="pricing-features">
+            <li><i class="fa-solid fa-circle-check"></i> <b>Everything in Auditor</b></li>
+            <li><i class="fa-solid fa-circle-check"></i> Unlimited Historical Data Scan</li>
+            <li><i class="fa-solid fa-circle-check"></i> Automated Dispute Evidence Hub</li>
+            <li><i class="fa-solid fa-circle-check"></i> 1-on-1 Dedicated TAM Support</li>
+            <li><i class="fa-solid fa-circle-check"></i> Private Offer & CPPO Auditing</li>
+        </ul>
+        <a href="contact.html" class="cta-btn cta-orange">Start Recovering</a>
+    </div>
+
+    <div class="price-card">
+        <div class="price-header">
+            <h3>Compliance Shield</h3>
+            <p>Global scale and badge guarantees.</p>
+        </div>
+        <div class="price-amount">Custom</div>
+        <div class="recovery-fee">Enterprise Service Agreement</div>
+        <ul class="pricing-features">
+            <li><i class="fa-solid fa-circle-check"></i> <b>14-Day FTR Badge Guarantee</b></li>
+            <li><i class="fa-solid fa-circle-check"></i> Multi-Account Governance</li>
+            <li><i class="fa-solid fa-circle-check"></i> White-Glove Catalog Management</li>
+            <li><i class="fa-solid fa-circle-check"></i> Channel Partner Strategy</li>
+            <li><i class="fa-solid fa-circle-check"></i> 24/7 Forensic Engineering</li>
+        </ul>
+        <a href="contact.html" class="cta-btn cta-outline">Request Custom Quote</a>
+    </div>
+</main>
+
+<div class="security-banner">
+    <div class="security-item">
+        <i class="fa-solid fa-user-shield"></i>
+        <p>Client-Side PII Scrubbing</p>
+    </div>
+    <div class="security-item">
+        <i class="fa-solid fa-lock"></i>
+        <p>SOC-2 Ready Infrastructure</p>
+    </div>
+    <div class="security-item">
+        <i class="fa-solid fa-file-contract"></i>
+        <p>AWS Qualified Partner</p>
+    </div>
+</div>
+
+<footer style="padding: 60px 20px; background: #f8fafc; border-top: 1px solid #e5e7eb; text-align: center;">
+    <p style="color: #64748b; font-size: 14px;">&copy; 2025 MarketOps Cloud. Built for $60M+ SaaS Scale.</p>
+</footer>
+
+</body>
+</html>

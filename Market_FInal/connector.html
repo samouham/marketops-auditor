@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Connector | MarketOps Cloud</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --aws-navy: #0b3c5d; --aws-orange: #ff9900; --text-slate: #64748b; }
+        body { font-family: 'Inter', sans-serif; background: #f1f5f9; margin: 0; color: var(--aws-navy); }
+        
+        /* 🛰️ SECURE HEADER */
+        nav { background: white; padding: 20px 40px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .secure-tag { background: #dcfce7; color: #15803d; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
+
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 30px; }
+
+        /* 🔒 LEFT SIDE: FORM */
+        .config-card { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        h1 { font-size: 24px; margin-bottom: 10px; font-weight: 900; }
+        .subtitle { color: var(--text-slate); margin-bottom: 30px; font-size: 15px; }
+
+        .input-box { margin-bottom: 25px; }
+        label { display: block; font-weight: 800; font-size: 12px; text-transform: uppercase; margin-bottom: 8px; color: var(--text-slate); }
+        input { width: 100%; padding: 15px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 15px; transition: 0.3s; box-sizing: border-box; }
+        input:focus { border-color: var(--aws-orange); outline: none; background: #fffaf5; }
+
+        .ext-id-box { background: #f8fafc; border: 1px dashed #cbd5e1; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; font-family: monospace; font-weight: 700; margin-bottom: 25px; }
+        .copy-btn { background: var(--aws-navy); color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 11px; }
+
+        .connect-btn { background: var(--aws-orange); color: white; width: 100%; padding: 20px; border-radius: 12px; border: none; font-weight: 800; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        .connect-btn:hover { background: #e68a00; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(255,153,0,0.2); }
+        .connect-btn:disabled { background: #cbd5e1; cursor: not-allowed; transform: none; }
+
+        /* 📖 RIGHT SIDE: INSTRUCTIONS */
+        .guide-card { background: #0b3c5d; color: white; padding: 30px; border-radius: 24px; }
+        .guide-step { margin-bottom: 20px; display: flex; gap: 15px; }
+        .step-num { background: rgba(255,255,255,0.1); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0; color: var(--aws-orange); }
+        .guide-text h4 { margin: 0 0 5px 0; font-size: 14px; }
+        .guide-text p { margin: 0; font-size: 13px; opacity: 0.8; line-height: 1.5; }
+
+        #success-msg { display: none; margin-top: 20px; text-align: center; color: #15803d; font-weight: 700; }
+        #error-msg { display: none; margin-top: 20px; text-align: center; color: #b91c1c; font-weight: 700; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div style="font-weight: 900; font-size: 20px;">MARKETOPS <span style="color:var(--aws-orange)">CLOUD</span></div>
+    <div class="secure-tag"><i class="fa-solid fa-lock"></i> AES-256 ENCRYPTED ENDPOINT</div>
+</nav>
+
+<div class="container">
+    <div class="config-card">
+        <h1>AWS Forensic Connector</h1>
+        <p class="subtitle">Grant read-only access to authorize your 14-Day Guarantee.</p>
+
+        <label>1. Your Unique External ID</label>
+        <div class="ext-id-box">
+            <span id="ext-id">MktOps-2025-Audit-Secure</span>
+            <button class="copy-btn" onclick="copyId()">COPY</button>
+        </div>
+
+        <div class="input-box">
+            <label>2. AWS Account ID (12 Digits)</label>
+            <input type="text" id="aws-account" placeholder="e.g. 123456789012">
+        </div>
+
+        <div class="input-box">
+            <label>3. Cross-Account Role ARN</label>
+            <input type="text" id="role-arn" placeholder="arn:aws:iam::123456789012:role/MarketOpsAudit">
+        </div>
+
+        <button onclick="establishConnection()" id="main-btn" class="connect-btn">
+            <i class="fa-solid fa-tower-broadcast"></i> INITIALIZE CONNECTION
+        </button>
+
+        <div id="success-msg">
+            <i class="fa-solid fa-circle-check"></i> Connection Established! Running Forensic Scan...
+        </div>
+
+        <div id="error-msg">
+            <i class="fa-solid fa-triangle-exclamation"></i> <span id="err-text">Connection Failed. Check Role ARN.</span>
+        </div>
+    </div>
+
+    <div class="guide-card">
+        <h3 style="margin-top:0;"><i class="fa-solid fa-book-sparkles"></i> Setup Guide</h3>
+        
+        <div class="guide-step">
+            <div class="step-num">1</div>
+            <div class="guide-text">
+                <h4>Create IAM Role</h4>
+                <p>Go to IAM > Roles > Create Role. Select "AWS Account" and "Another AWS Account".</p>
+            </div>
+        </div>
+
+        <div class="guide-step">
+            <div class="step-num">2</div>
+            <div class="guide-text">
+                <h4>Enter MarketOps ID</h4>
+                <p>Paste our Account ID (123456789012) and the External ID provided on the left.</p>
+            </div>
+        </div>
+
+        <div class="guide-step">
+            <div class="step-num">3</div>
+            <div class="guide-text">
+                <h4>Attach Policy</h4>
+                <p>Attach the <b>SecurityAudit</b> managed policy. This gives us read-only access only.</p>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: 12px; font-size: 12px;">
+            <i class="fa-solid fa-info-circle"></i> We follow the <b>Least Privilege</b> principle. We cannot modify or delete any resources in your account.
+        </div>
+    </div>
+</div>
+
+<script>
+    const API_BASE = "http://54.161.41.4:8001"; // YOUR LIVE EC2 IP
+
+    function copyId() {
+        const id = document.getElementById('ext-id').innerText;
+        navigator.clipboard.writeText(id);
+        alert("External ID Copied!");
+    }
+
+    async function establishConnection() {
+        const btn = document.getElementById('main-btn');
+        const success = document.getElementById('success-msg');
+        const error = document.getElementById('error-msg');
+        const errText = document.getElementById('err-text');
+        
+        const arn = document.getElementById('role-arn').value;
+        const externalId = document.getElementById('ext-id').innerText;
+
+        if(!arn || !arn.includes('arn:aws:iam')) {
+            alert("Please provide a valid Role ARN");
+            return;
+        }
+
+        // Reset UI
+        error.style.display = 'none';
+        btn.innerHTML = '<i class="fa-solid fa-sync fa-spin"></i> SHAKING HANDS WITH AWS STS...';
+        btn.disabled = true;
+
+        try {
+            const response = await fetch(`${API_BASE}/api/v1/connect-aws`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    role_arn: arn,
+                    external_id: externalId
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                btn.style.display = 'none';
+                success.style.display = 'block';
+                
+                // Trigger the live PDF download immediately after scan
+                window.location.href = `${API_BASE}/api/v1/download-live`;
+                
+                setTimeout(() => {
+                    alert("Scan Complete! Forensic Report Downloaded.");
+                }, 2000);
+
+            } else {
+                throw new Error(data.detail || "Connection Refused by AWS");
+            }
+
+        } catch (err) {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-tower-broadcast"></i> RETRY CONNECTION';
+            error.style.display = 'block';
+            errText.innerText = err.message;
+        }
+    }
+</script>
+
+</body>
+</html>
