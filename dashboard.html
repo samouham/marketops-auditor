@@ -22,7 +22,7 @@
 </head>
 <body class="p-6 lg:p-12 opacity-0 transition-opacity duration-500" id="main-body">
     <div class="fixed top-0 left-0 w-full z-50"><div id="progress" class="progress-bar"></div></div>
-    
+
     <div class="max-w-[1600px] mx-auto space-y-8">
         <header class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 border-b border-white/5 pb-10">
             <div class="space-y-2">
@@ -57,7 +57,7 @@
                     <span class="text-2xl font-black text-emerald-500 italic uppercase">USD</span>
                 </div>
                 <div id="ai-box" class="mt-12 p-10 rounded-[2.5rem] ai-glow opacity-0 transition-all duration-1000">
-                    <p id="ai-narrative" class="text-slate-300 font-bold text-xl leading-relaxed italic italic">Analyzing cross-regional telemetry streams...</p>
+                    <p id="ai-narrative" class="text-slate-300 font-bold text-xl leading-relaxed italic">Analyzing cross-regional telemetry streams...</p>
                 </div>
             </div>
 
@@ -88,20 +88,26 @@
     </div>
 
     <script>
-        const API_URL = "https://muabisr7qg.us-east-1.awsapprunner.com";
+        const API_URL = "https://2eytaets7y.us-east-1.awsapprunner.com";
         
-        // 🛡️ High-Availability Auth Engine
-        const authPolling = setInterval(() => {
-            if (typeof Clerk !== 'undefined' && Clerk.isReady()) {
-                clearInterval(authPolling);
-                if (!Clerk.user) {
-                    window.location.href = "/"; // Only redirect if definitely not logged in
-                } else {
-                    document.getElementById('main-body').style.opacity = "1";
-                    initializeDashboard();
-                }
+        // 🛡️ High-Reliability Clerk Initialization
+        window.addEventListener('load', async () => {
+            try {
+                await Clerk.load();
+                setTimeout(() => {
+                    if (!Clerk.user) {
+                        window.location.href = "/";
+                    } else {
+                        document.getElementById('main-body').style.opacity = "1";
+                        initializeDashboard();
+                    }
+                }, 300);
+            } catch (err) {
+                console.error("Clerk initialization error:", err);
+                document.getElementById('main-body').style.opacity = "1";
+                initializeDashboard();
             }
-        }, 100);
+        });
 
         function initializeDashboard() {
             Clerk.mountUserButton(document.getElementById('user-btn'));
@@ -109,15 +115,18 @@
             if (savedArn) document.getElementById('arn-input-field').value = savedArn;
             
             const matrix = document.getElementById('matrix');
+            matrix.innerHTML = "";
             for (let i = 1; i <= 28; i++) {
                 const d = document.createElement('div');
                 d.className = "status-dot"; d.id = `f-${i}`;
                 matrix.appendChild(d);
             }
+            writeLog("NODE_INITIALIZED::IDENTITY_ANCHORED", "text-emerald-400");
         }
 
         function writeLog(msg, color = "text-cyan-500/70") {
             const l = document.getElementById('log');
+            if(!l) return;
             const p = document.createElement('p'); p.className = color;
             p.innerText = `:: [${new Date().toLocaleTimeString()}] ${msg}`;
             l.appendChild(p); l.scrollTop = l.scrollHeight;
@@ -127,15 +136,21 @@
             const arn = document.getElementById('arn-input-field').value.trim();
             if(!arn) return alert("VALID IAM ROLE ARN REQUIRED.");
             document.getElementById('scan-btn').disabled = true;
+            document.getElementById('scan-btn').innerText = "SWEEPING...";
             writeLog("HANDSHAKE_INITIALIZED...");
 
             try {
                 const res = await fetch(`${API_URL}/api/execute-scan`, { 
-                    method: 'POST', headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ arn: arn }) 
+                    method: 'POST', 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        arn: arn,
+                        regions: ["us-east-1"] // Prevents 504 Gateway Timeout
+                    }) 
                 });
+                
+                if(!res.ok) throw new Error(`ACCESS_DENIED (${res.status})`);
                 const data = await res.json();
-                if(!res.ok) throw new Error("ACCESS_DENIED");
 
                 let p = 0;
                 const interval = setInterval(() => {
@@ -143,32 +158,32 @@
                     if(p % 4 === 0) {
                         const idx = p / 4;
                         const dot = document.getElementById(`f-${idx}`);
-                        if(dot && data.matrix[idx-1]) {
+                        if(dot && data.matrix && data.matrix[idx-1]) {
                             dot.classList.add(data.matrix[idx-1].status === "DRIFT" ? 'dot-drift' : 'dot-verified');
                         }
                     }
                     if(p >= 100) { clearInterval(interval); finalize(data); }
                 }, 30);
             } catch (e) {
-                writeLog("HANDSHAKE_REFUSED", "text-red-500");
+                writeLog(`HANDSHAKE_REFUSED: ${e.message}`, "text-red-500");
                 document.getElementById('scan-btn').disabled = false;
+                document.getElementById('scan-btn').innerText = "Execute Global Sweep";
             }
         };
 
         function finalize(data) {
-            const t = data.telemetry;
-            document.getElementById('annual-val').innerText = `$${t.annualized_recovery.toLocaleString()}`;
-            document.getElementById('drift-count').innerText = t.drift_detected;
-            document.getElementById('ai-narrative').innerText = data.narrative;
+            const t = data.summary || {};
+            document.getElementById('annual-val').innerText = `$${(t.projected_annual_recovery_usd || 0).toLocaleString()}`;
+            document.getElementById('drift-count').innerText = t.total_findings || 0;
+            document.getElementById('ai-narrative').innerText = t.scan_status || "Audit scan completed successfully.";
             document.getElementById('ai-box').style.opacity = "1";
             document.getElementById('scan-btn').classList.add('hidden');
             const dlBtn = document.getElementById('download-btn');
             dlBtn.classList.remove('hidden');
 
             dlBtn.onclick = () => {
-                const email = Clerk.user.primaryEmailAddress.emailAddress;
-                const evidence = data.remediation ? data.remediation.join('|') : "";
-                const url = `${API_URL}/api/generate-artifact?drift=${t.drift_detected}&recovery=${t.annualized_recovery}&email=${encodeURIComponent(email)}&evidence=${encodeURIComponent(evidence)}`;
+                const email = Clerk.user && Clerk.user.primaryEmailAddress ? Clerk.user.primaryEmailAddress.emailAddress : "auditor@enterprise.com";
+                const url = `${API_URL}/api/generate-artifact?drift=${t.total_findings || 0}&recovery=${t.projected_annual_recovery_usd || 0}&email=${encodeURIComponent(email)}`;
                 window.open(url, '_blank');
             };
         }
