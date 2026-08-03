@@ -9,7 +9,7 @@ export default function Page() {
         setIsGenerating(true);
         try {
             // This points to your live App Runner Engine
-            const response = await fetch('https://muabisr7qg.us-east-1.awsapprunner.com/api/generate-artifact', {
+            const response = await fetch('https://2eytaets7y.us-east-1.awsapprunner.com/api/generate-artifact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ 
