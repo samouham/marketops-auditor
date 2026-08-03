@@ -88,19 +88,20 @@
     </div>
 
     <script>
-        // Updated to your active, working App Runner backend endpoint
         const API_URL = "https://2eytaets7y.us-east-1.awsapprunner.com";
         
         // 🛡️ High-Reliability Clerk Initialization
         window.addEventListener('load', async () => {
             try {
                 await Clerk.load();
-                if (!Clerk.user) {
-                    window.location.href = "/";
-                } else {
-                    document.getElementById('main-body').style.opacity = "1";
-                    initializeDashboard();
-                }
+                setTimeout(() => {
+                    if (!Clerk.user) {
+                        window.location.href = "/";
+                    } else {
+                        document.getElementById('main-body').style.opacity = "1";
+                        initializeDashboard();
+                    }
+                }, 300);
             } catch (err) {
                 console.error("Clerk initialization error:", err);
                 document.getElementById('main-body').style.opacity = "1";
@@ -171,13 +172,10 @@
         };
 
         function finalize(data) {
-            const t = data.telemetry || {};
-            document.getElementById('annual-val').innerText = `$${(t.annualized_recovery || 0).toLocaleString()}`;
-            document.getElementById('drift-count').innerText = t.drift_detected || 0;
-            if(document.getElementById('monthly-spend') && t.monthly_spend) {
-                document.getElementById('monthly-spend').innerText = `$${t.monthly_spend.toLocaleString()}`;
-            }
-            document.getElementById('ai-narrative').innerText = data.narrative || "Audit scan completed successfully.";
+            const t = data.summary || {};
+            document.getElementById('annual-val').innerText = `$${(t.projected_annual_recovery_usd || 0).toLocaleString()}`;
+            document.getElementById('drift-count').innerText = t.total_findings || 0;
+            document.getElementById('ai-narrative').innerText = t.scan_status || "Audit scan completed successfully.";
             document.getElementById('ai-box').style.opacity = "1";
             document.getElementById('scan-btn').classList.add('hidden');
             const dlBtn = document.getElementById('download-btn');
@@ -185,8 +183,7 @@
 
             dlBtn.onclick = () => {
                 const email = Clerk.user && Clerk.user.primaryEmailAddress ? Clerk.user.primaryEmailAddress.emailAddress : "auditor@enterprise.com";
-                const evidence = data.remediation ? data.remediation.join('|') : "";
-                const url = `${API_URL}/api/generate-artifact?drift=${t.drift_detected || 0}&recovery=${t.annualized_recovery || 0}&email=${encodeURIComponent(email)}&evidence=${encodeURIComponent(evidence)}`;
+                const url = `${API_URL}/api/generate-artifact?drift=${t.total_findings || 0}&recovery=${t.projected_annual_recovery_usd || 0}&email=${encodeURIComponent(email)}`;
                 window.open(url, '_blank');
             };
         }
